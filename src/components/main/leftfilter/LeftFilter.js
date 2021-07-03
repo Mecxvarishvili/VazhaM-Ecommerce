@@ -3,6 +3,7 @@ import { Box, Grid } from '@material-ui/core';
 import Categories from './Categories';
 import Condition from './Condition';
 import PriceA from './PriceA';
+import PriceB from './PriceB';
 import FilterInput from './FilterInput';
 const LeftFilter = () => {
     return (
@@ -15,6 +16,7 @@ const LeftFilter = () => {
                 <FilterInput />
                 <Condition />
                 <PriceA />
+                <PriceB />
             </Box>
         </Grid>
     );
