@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect }from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -8,6 +8,7 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import { Box } from '@material-ui/core';
+
 
 const useStyles = makeStyles((theme) => ({
   header: {
@@ -63,14 +64,39 @@ const useStyles = makeStyles((theme) => ({
       fontWeight: '500',
       margin: 'auto',
   },
+  appBarTransparent: {
+    backgroundColor: "rgb(79, 79, 79)"
+  },
+  appBarSolid: {
+    backgroundColor: "rgb(79, 79, 79, 0.5)"
+  },
 }));
 
 const  Header = () => {
   const classes = useStyles();
 
+  const [navBackground, setNavBackground] = useState('appBarTransparent')
+  const navRef = React.useRef()
+  navRef.current = navBackground
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const show = window.ScrollY > 10
+      if (show) {
+        setNavBackground('appBarSolid')
+      } else {
+        setNavBackground('appBarTransparent')
+      }
+    }
+    document.addEventListener('scroll', handleScroll)
+    return () => {
+      document.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
   return (
-      <AppBar position="static" className={classes.header}>
-        <Toolbar className={classes.toolBar}>
+      <AppBar position="static" className={classes[navRef.currnet]}>
+        <Toolbar className={`${classes[navRef.currnet]} ${classes.toolBar}`}>
           <Typography variant="h6" className={classes.title}>MDB</Typography>
           <Button>
             <ShoppingCartIcon className={classes.shoppingCart} />

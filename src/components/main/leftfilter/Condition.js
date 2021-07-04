@@ -11,6 +11,10 @@ const useStyles = makeStyles(() => ({
     myComponent: {
       "& .MuiFormControlLabel-label": {
           fontSize: '12px',
+          color: "#4f4f4f",
+      },
+      "& .MuiCheckbox-colorSecondary.Mui-checked": {
+        color: "#1266f1",
       }
     },
 }))
@@ -20,9 +24,9 @@ const Condition = () => {
     const classes = useStyles()
     return (
         <Box component='section'>
-            <Box component="h3">Condition</Box>
+            <Box component='h3' style={{ fontSize: "17px", fontWeight: "500", marginTop: "35px",}}>Condition</Box>
             <Box>
-                <FormControlLabel className={classes.myComponent} control={<Checkbox name="NEW" />} label="NEW" />
+                <FormControlLabel className={classes.myComponent} control={<Checkbox name="NEW"/>} label="NEW" />
             </Box>
             <Box>
                 <FormControlLabel className={classes.myComponent} control={<Checkbox name=" USED"/>} label="USED" />

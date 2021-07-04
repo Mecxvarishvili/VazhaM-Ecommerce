@@ -2,13 +2,13 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Grid } from '@material-ui/core';
 import LeftFilter from './leftfilter/LeftFilter';
-import RightResult from './RightResult';
+import RightResult from './rightresult/RightResult';
 
 
 const useStyles = makeStyles((theme) => ({
     container: {
         width: '1140px',
-        margin: '0 auto',
+        margin: '30px auto 0 auto',
     },
   }));
   
