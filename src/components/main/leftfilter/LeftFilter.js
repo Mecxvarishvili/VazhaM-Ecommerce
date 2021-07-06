@@ -19,7 +19,7 @@ const LeftFilter = () => {
     const classes = useStyles()
 
     return (
-        <Grid md={4} item>
+        <Grid sm={12} lg={4} item>
             <Box component='section'>
                 <Categories />
             </Box>

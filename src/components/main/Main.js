@@ -20,7 +20,7 @@ const classes = useStyles();
 
     return (
         <Box component="main">
-            <Grid className={classes.container} container  spacing={0, 4}>
+            <Grid className={classes.container} container  spacing={4}>
                 <LeftFilter />
                 <RightResult />
             </Grid>
