@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Box, Toolbar, Typography, Button, Select, FormControl} from '@material-ui/core';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -18,8 +19,10 @@ const useStyles = makeStyles((theme) => ({
     title: {
       flexGrow: 1,
       fontWeight: 900,
+      fontSize: "22px",
       letterSpacing: '3px',
       color: 'white',
+      textDecoration: "none",
     },
     signIn: {
         fontWeight: '500',
@@ -92,8 +95,8 @@ const useStyles = makeStyles((theme) => ({
 const Header = () => {
     const classes = useStyles();
 
-    const [navBackground, setNavBackground] = useState('appBarTransparent')
-    const [color, setColor] = useState('before')
+    const [navBackground, setNavBackground] = useState('appBarSolid')
+    const [color, setColor] = useState({logo: "logo", signUp: "aftSignUp", after: "after", aftImg: "optionImgAft", })
     const navRef = React.useRef()
     navRef.current = navBackground
 
@@ -101,7 +104,7 @@ const Header = () => {
     colRef.current = color
     useEffect(() => {
         const handleScroll = () => {
-            const show = window.scrollY > 10
+            const show = window.scrollY >= 0
             if (show) {
                 setNavBackground('appBarSolid')
                 setColor({
@@ -125,7 +128,7 @@ const Header = () => {
         <div className={classes.root}>
             <AppBar position="fixed" className={classes[navRef.current]}>
                 <Toolbar className={classes.toolBar}>
-                  <Typography variant="h6" className={`${classes.title} ${classes[colRef.current.logo]}`}>MDB</Typography>
+                    <Link className={`${classes.title} ${classes[colRef.current.logo]}`} to="/">MDB</Link>
                   <Button>
                     <ShoppingCartIcon className={`${classes.shoppingCart} ${classes[colRef.current.after]}`} />
                   </Button>

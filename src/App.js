@@ -10,8 +10,8 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 const App = () => {
   return (
     <Box>
-      <Header />
       <Router>
+      <Header />
         <Box>
           <Switch>
             <Route path="/users">
@@ -22,8 +22,8 @@ const App = () => {
             </Route>
           </Switch>
         </Box>
-      </Router>
       <Footer />
+      </Router>
     </Box>
   );
 };
