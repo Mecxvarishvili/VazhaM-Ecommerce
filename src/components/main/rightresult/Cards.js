@@ -16,55 +16,55 @@ const Cards = () => {
             title: 'Black denim jacket',
             img: 'https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15a.jpg',
             price: '$99.99',
-            hoverImg: 'https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15.jpg'
+            hoverImg: 'url("https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15.jpg")!important',
         },
         {
             title: 'Grey sweater',
             img: 'https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/14a.jpg',
             price: '$21.99',
-            hoverImg: 'https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/14.jpg'
+            hoverImg: 'url("https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/14.jpg")!important',
         },
         {
             title: 'Blue denim shirt',
             img: 'https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12a.jpg',
             price: '$17.99',
-            hoverImg: 'https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12.jpg'
+            hoverImg: 'url("https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12.jpg")!important',
         },
         {
             title: 'Blue denim shirt',
             img: 'https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12a.jpg',
             price: '$17.99',
-            hoverImg: 'https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13.jpg'
+            hoverImg: 'url("https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12.jpg")!important',
         },
         {
             title: 'Red hoodie',
             img: 'https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13a.jpg',
             price: '$35.99',
-            hoverImg: 'https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13.jpg'
+            hoverImg: 'url("https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13.jpg")!important',
         },
         {
             title: 'Grey sweater',
             img: 'https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/14a.jpg',
             price: '$21.99',
-            hoverImg: 'https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/14.jpg'
+            hoverImg: 'url("https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/14.jpg")!important',
         },
         {
             title: 'Red hoodie',
             img: 'https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13a.jpg',
             price: '$35.99',
-            hoverImg: 'https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13.jpg'
+            hoverImg: 'url("https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13.jpg")!important',
         },
         {
             title: 'Blue denim shirt',
             img: 'https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12a.jpg',
             price: '$17.99',
-            hoverImg: 'https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13.jpg'
+            hoverImg: 'url("https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12.jpg")!important',
         },
         {
             title: 'Black denim jacket',
             img: 'https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15a.jpg',
             price: '$99.99',
-            hoverImg: 'https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15.jpg'
+            hoverImg: 'url("https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15.jpg")!important',
         },
     ])
 

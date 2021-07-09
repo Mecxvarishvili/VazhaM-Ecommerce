@@ -3,6 +3,9 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { ListItem } from '@material-ui/core';
 import { List } from '@material-ui/core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faMap, faEnvelope, faClock } from '@fortawesome/free-regular-svg-icons' 
+import { faPhoneAlt } from '@fortawesome/free-solid-svg-icons' 
 
 const useStyles = makeStyles(() => ({
     title: {
@@ -19,6 +22,9 @@ const useStyles = makeStyles(() => ({
         background: "#1266f1",
         height: "1px",
     },
+    icon: {
+        marginRight: "10px",
+    },
 }))
 
 
@@ -32,10 +38,10 @@ const Contacts = () => {
             <Box className={classes.line}></Box>
             <Box>
                 <List>
-                    <ListItem className={classes.li} >New York, Avenue Street 10</ListItem>
-                    <ListItem className={classes.li} >042 876 836 908</ListItem>
-                    <ListItem className={classes.li} >company@example.com</ListItem>
-                    <ListItem className={classes.li} >Monday - Friday: 10-17</ListItem>
+                    <ListItem className={classes.li} ><FontAwesomeIcon className={classes.icon} icon={faMap} /> New York, Avenue Street 10</ListItem>
+                    <ListItem className={classes.li} ><FontAwesomeIcon className={classes.icon} icon={faPhoneAlt} /> 042 876 836 908</ListItem>
+                    <ListItem className={classes.li} ><FontAwesomeIcon className={classes.icon} icon={faEnvelope} /> company@example.com</ListItem>
+                    <ListItem className={classes.li} ><FontAwesomeIcon className={classes.icon} icon={faClock} /> Monday - Friday: 10-17</ListItem>
                 </List>
             </Box>
         </Grid>

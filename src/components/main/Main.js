@@ -10,6 +10,26 @@ const useStyles = makeStyles((theme) => ({
         width: '1140px',
         margin: '30px auto 0 auto',
     },
+    forShop: {
+        backgroundImage: 'url("https://mdbootstrap.com/img/Photos/Others/clothes(5)-crop.jpg")',
+        backgroundPosition: 'center center',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+        height: '400px',
+        oppacity: '',
+    },
+    shopBackg: {
+      backgroundColor: 'rgba(0,0,0,.7)',
+      height: '100%',
+      display: 'flex',
+      justifyContent: 'center',
+    },
+    shop: {
+        fontSize: '38px',
+        fontWeight: '500',
+        margin: 'auto',
+        color: 'white',
+    },
   }));
   
   
@@ -19,7 +39,12 @@ const Main = () => {
 const classes = useStyles();
 
     return (
-        <Box component="main">
+        <Box component="main">    
+            <Box className={classes.forShop}>
+                <Box className={classes.shopBackg}>
+                    <Box className={classes.shop}>Shop</Box>
+                </Box>
+            </Box>
             <Grid className={classes.container} container  spacing={4}>
                 <LeftFilter />
                 <RightResult />

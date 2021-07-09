@@ -15,26 +15,6 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: 'white',
         color: "blue",
     },
-    forShop: {
-        backgroundImage: 'url("https://mdbootstrap.com/img/Photos/Others/clothes(5)-crop.jpg")',
-        backgroundPosition: 'center center',
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: 'cover',
-        height: '400px',
-        oppacity: '',
-    },
-    shopBackg: {
-      backgroundColor: 'rgba(0,0,0,.7)',
-      height: '100%',
-      display: 'flex',
-      justifyContent: 'center',
-    },
-    shop: {
-        fontSize: '38px',
-        fontWeight: '500',
-        margin: 'auto',
-        color: 'white',
-    },
     title: {
       flexGrow: 1,
       fontWeight: 900,
@@ -162,12 +142,7 @@ const Header = () => {
                   <Button className={`${classes.signIn} ${classes[colRef.current.after]}`}>Sign in</Button>
                   <Button className={`${classes.signUp} ${classes[colRef.current.signUp]}`}>SIGN UP</Button>
                 </Toolbar>
-            </AppBar>     
-            <Box className={classes.forShop}>
-                <Box className={classes.shopBackg}>
-                    <Box className={classes.shop}>Shop</Box>
-                </Box>
-            </Box>
+            </AppBar> 
         </div >
     );
 }
