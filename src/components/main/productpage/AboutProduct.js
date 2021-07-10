@@ -73,6 +73,7 @@ const useStyles = makeStyles(() => ({
       fontWeight: "300",
       color: "#4f4f4f",
       marginBottom: "16px",
+      lineHeight: "1.5"
     },
     tabCont: {
       display: "flex",
@@ -108,7 +109,7 @@ const AboutProduct = () => {
     const classes = useStyles()
 
     return (
-        <Grid item lg={6}>
+        <Grid item md={6} xs={12}>
             <Box className={classes.title}>Blue denim shirt</Box>
             <Box className={classes.category}>SHIRTS</Box>
             <Rating className={classes.rating} name="read-only" value="4" readOnly emptyIcon={<StarBorderIcon fontSize="inherit" />} />

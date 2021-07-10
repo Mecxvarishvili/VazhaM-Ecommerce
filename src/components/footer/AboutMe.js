@@ -19,13 +19,16 @@ const useStyles = makeStyles(() => ({
         fontSize: "15px",
         lineHeight: "1.8"
     },
+    container: {
+        margin: '0 auto',
+    },
 }))
 
 
 const AboutMe = () => {
     const classes = useStyles()
     return (
-        <Grid item lg={3}>
+        <Grid className={classes.container} item xs={12} md={3}>
             <Box className={classes.title}>About me</Box>
             <Box className={classes.line}></Box>
             <Box className={classes.describe}>

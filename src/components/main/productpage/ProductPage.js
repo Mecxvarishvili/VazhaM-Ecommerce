@@ -26,6 +26,9 @@ const useStyles = makeStyles(() => ({
     container: {
         margin: '0 auto',
     },
+    inCont: {
+        marginBottom: "70px",
+    },
 }))
 
 const ProductPage = () => {
@@ -36,8 +39,8 @@ const ProductPage = () => {
                 <Box className={classes.title}>Product page</Box>
             </Box>
             <Box >
-                <Grid sm={9} xs={6} className={classes.container}>
-                    <Box component="section">
+                <Grid sm={9} xs={9} className={classes.container}>
+                    <Box className={classes.inCont} component="section">
                         <Grid container spacing={5}>
                             <ProductImage />
                             <AboutProduct />

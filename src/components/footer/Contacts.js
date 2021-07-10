@@ -33,7 +33,7 @@ const Contacts = () => {
     const classes = useStyles()
 
     return (
-        <Grid item lg={3}>
+        <Grid  xs={12} md={3}>
             <Box className={classes.title}>Contacts</Box>
             <Box className={classes.line}></Box>
             <Box>

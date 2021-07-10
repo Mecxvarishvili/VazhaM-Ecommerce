@@ -33,7 +33,7 @@ const CardItem = (props) => {
   const classes = useStyles(props);
 
   return (
-    <Link className={classes.link} to="/users">
+    <Link className={classes.link} to="/product">
     <Card className={classes.root}>
       <CardActionArea>
         <CardMedia

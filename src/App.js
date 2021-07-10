@@ -14,7 +14,7 @@ const App = () => {
       <Header />
         <Box>
           <Switch>
-            <Route path="/users">
+            <Route path="/product">
               <ProductPage />
             </Route>
             <Route path="/">

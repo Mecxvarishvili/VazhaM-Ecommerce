@@ -20,6 +20,7 @@ const useStyles = makeStyles(() => ({
     },
     media: {
       height: 450,
+      width: "100%",
       borderRadius: "10px",
     },
 }))
@@ -30,8 +31,8 @@ const ProductImage = () => {
     const [img, setImg] = useState('https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15a.jpg')
 
     return (
-        <Grid item lg={6}>
-            <Box>
+        <Grid item container md={6} xs={12}>
+            <Grid item md={12} xs={12}>
                 <Card className={classes.media}>
                   <CardActionArea>
                     <CardMedia
@@ -41,9 +42,9 @@ const ProductImage = () => {
                     />
                   </CardActionArea>
                 </Card>
-            </Box>
-            <Grid container spacing={2}>
-                <Grid item lg={3}>
+            </Grid>
+            <Grid item container spacing={2}>
+                <Grid item md={3} xs={3}>
                     <CardMedia
                       onMouseEnter={() => setImg('https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12a.jpg')}
                       className={classes.img}
@@ -51,7 +52,7 @@ const ProductImage = () => {
                       title="Contemplative Reptile"
                     />
                 </Grid>
-                <Grid item lg={3}>
+                <Grid item md={3} xs={3}>
                     <CardMedia
                       onMouseEnter={() => setImg('https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13a.jpg')}
                       className={classes.img}
@@ -59,7 +60,7 @@ const ProductImage = () => {
                       title="Contemplative Reptile"
                     />
                   </Grid>
-                <Grid item lg={3}>
+                <Grid item md={3} xs={3}>
                     <CardMedia
                       onMouseEnter={() => setImg('https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/14a.jpg')}
                       className={classes.img}
@@ -67,7 +68,7 @@ const ProductImage = () => {
                       title="Contemplative Reptile"
                     />
                   </Grid>
-                <Grid item lg={3}>
+                <Grid item md={3} xs={3}>
                     <CardMedia
                       onMouseEnter={() => setImg('https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15a.jpg')}
                       className={classes.img}

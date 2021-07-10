@@ -44,9 +44,9 @@ const Footer = () => {
     return (
         <Box component="footer">
             <Box className={classes.outCont1}>
-                <Grid container sm={8} className={classes.container1}>
-                    <Grid item md={6} sm={12} className={classes.getConnect}>Get connected with us on social networks!</Grid>
-                    <Grid item md={6} sm={12}>
+                <Grid container xs={9} className={classes.container1}>
+                    <Grid item sm={6} xs={12} className={classes.getConnect}>Get connected with us on social networks!</Grid>
+                    <Grid item sm={6} xs={12}>
                         <FontAwesomeIcon className={classes.icon} icon={faFacebookF} />
                         <FontAwesomeIcon className={classes.icon} icon={faTwitter} />
                         <FontAwesomeIcon className={classes.icon} icon={faGooglePlusG} />
@@ -56,7 +56,7 @@ const Footer = () => {
                 </Grid>
             </Box>
             <Box  className={classes.outCont2}>
-                <Grid container md={8} className={classes.container2} container>
+                <Grid container  xs={6} md={9} className={classes.container2} container>
                     <AboutMe />
                     <Products />
                     <UsefulLinks />

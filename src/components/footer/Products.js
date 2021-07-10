@@ -27,7 +27,7 @@ const Products = () => {
     const classes = useStyles()
 
     return (
-        <Grid item lg={3}>
+        <Grid item xs={12} md={3}>
             <Box className={classes.title}>Products</Box>
             <Box className={classes.line}></Box>
             <Box>
