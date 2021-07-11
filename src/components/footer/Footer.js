@@ -36,6 +36,9 @@ const useStyles = makeStyles(() => ({
     icon: {
         margin: "0 10px",
     },
+    iconCont: {
+        textAlign: "right",
+    },
 }))
 
 const Footer = () => {
@@ -46,7 +49,7 @@ const Footer = () => {
             <Box className={classes.outCont1}>
                 <Grid container xs={9} className={classes.container1}>
                     <Grid item sm={6} xs={12} className={classes.getConnect}>Get connected with us on social networks!</Grid>
-                    <Grid item sm={6} xs={12}>
+                    <Grid item sm={6} xs={12} className={classes.iconCont}>
                         <FontAwesomeIcon className={classes.icon} icon={faFacebookF} />
                         <FontAwesomeIcon className={classes.icon} icon={faTwitter} />
                         <FontAwesomeIcon className={classes.icon} icon={faGooglePlusG} />

@@ -5,7 +5,7 @@ import Cards from './Cards';
 
 const RightResult = () => {
     return (
-        <Grid sm={12} lg={8} item >
+        <Grid xs={12} sm={8} item >
             <Customizer />
             <Cards />
             <Customizer />

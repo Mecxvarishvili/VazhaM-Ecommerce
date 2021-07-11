@@ -72,7 +72,7 @@ const Cards = () => {
         <Box component="section" className={classes.cont}>
             <Grid container spacing={3}>
                 {data.map(el => (
-                    <Grid item lg={4}>
+                    <Grid item xs={12} sm={4}>
                         <CardItem data={el} />
                     </Grid>
                 ))}

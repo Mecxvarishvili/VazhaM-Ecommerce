@@ -50,7 +50,7 @@ const Description = () => {
             <Box className={classes.title}>Product Description</Box>
             <Box className={classes.category}>SHIRTS</Box>
             <Rating className={classes.rating} name="read-only" value="4" readOnly emptyIcon={<StarBorderIcon fontSize="inherit" />} />
-            <Box className={classes.price}>$12.99</Box>
+            <Box className={classes.price}>12.99 $</Box>
             <Box className={classes.describe}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, sapiente illo. 
                 Sit error voluptas repellat rerum quidem, soluta enim perferendis voluptates laboriosam. 
                 Distinctio, officia quis dolore quos sapiente tempore alias.

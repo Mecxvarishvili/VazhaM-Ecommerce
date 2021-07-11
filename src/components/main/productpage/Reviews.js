@@ -78,7 +78,6 @@ const Reviews = () => {
             <Grid container>
                 <Grid sm={12}>
                     <TextareaAutosize className={classes.textArea} id="outlined-basic" label="Outlined" variant="outlined"
-                      maxRows={4}
                       aria-label="maximum height"
                       placeholder="your review"
                       id="form"

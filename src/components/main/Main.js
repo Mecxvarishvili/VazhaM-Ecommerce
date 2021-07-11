@@ -6,9 +6,35 @@ import RightResult from './rightresult/RightResult';
 
 
 const useStyles = makeStyles((theme) => ({
-    container: {
-        width: '1140px',
-        margin: '30px auto 0 auto',
+    "@media only screen and (max-width: 12000px)": {
+        container: {
+            width: '1140px',
+            margin: '30px auto 0 auto',
+        },
+    },
+    "@media only screen and (max-width: 1200px)": {
+        container: {
+            width: '960px',
+            margin: '30px auto 0 auto',
+        },
+    },
+    "@media only screen and (max-width: 990px)": {
+        container: {
+            width: '720px',
+            margin: '30px auto 0 auto',
+        },
+    },
+    "@media only screen and (max-width: 768px)": {
+        container: {
+            maxWidth: '540px',
+            margin: '30px auto 0 auto',
+        },
+    },
+    "@media only screen and (max-width: 567px)": {
+        container: {
+            maxWidth: '100%',
+            margin: '30px auto 0 auto',
+        },
     },
     forShop: {
         backgroundImage: 'url("https://mdbootstrap.com/img/Photos/Others/clothes(5)-crop.jpg")',
