@@ -7,6 +7,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import { Box, Typography} from '@material-ui/core';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { Product, Home } from '../routes';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -32,8 +33,10 @@ const useStyles = makeStyles(() => ({
 const CardItem = (props) => {
   const classes = useStyles(props);
 
+  /* const data = props.data */
+
   return (
-    <Link className={classes.link} to="/product">
+    <Link className={classes.link} to={ Product }>
     <Card className={classes.root}>
       <CardActionArea>
         <CardMedia
@@ -46,7 +49,7 @@ const CardItem = (props) => {
             {props.data.title}
           </Typography>
           <Typography className={classes.title} variant="h6" component="p">
-              {props.data.price}
+              ${props.data.price}
           </Typography>
         </CardContent>
       </CardActionArea>

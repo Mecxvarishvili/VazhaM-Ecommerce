@@ -2,6 +2,8 @@ import React from 'react';
 import { Grid, Box, makeStyles } from '@material-ui/core';
 import { useState } from 'react';
 import CardItem from './CardItem';
+import Loader from '../Loader';
+import { useEffect } from 'react';
 
 const useStyles = makeStyles(() => ({
     cont: {
@@ -11,71 +13,38 @@ const useStyles = makeStyles(() => ({
 
 const Cards = () => {
     const classes =useStyles()
-    const [data, setData] = useState([
-        {
-            title: 'Black denim jacket',
-            img: 'https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15a.jpg',
-            price: '$99.99',
-            hoverImg: 'url("https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15.jpg")!important',
-        },
-        {
-            title: 'Grey sweater',
-            img: 'https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/14a.jpg',
-            price: '$21.99',
-            hoverImg: 'url("https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/14.jpg")!important',
-        },
-        {
-            title: 'Blue denim shirt',
-            img: 'https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12a.jpg',
-            price: '$17.99',
-            hoverImg: 'url("https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12.jpg")!important',
-        },
-        {
-            title: 'Blue denim shirt',
-            img: 'https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12a.jpg',
-            price: '$17.99',
-            hoverImg: 'url("https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12.jpg")!important',
-        },
-        {
-            title: 'Red hoodie',
-            img: 'https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13a.jpg',
-            price: '$35.99',
-            hoverImg: 'url("https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13.jpg")!important',
-        },
-        {
-            title: 'Grey sweater',
-            img: 'https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/14a.jpg',
-            price: '$21.99',
-            hoverImg: 'url("https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/14.jpg")!important',
-        },
-        {
-            title: 'Red hoodie',
-            img: 'https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13a.jpg',
-            price: '$35.99',
-            hoverImg: 'url("https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13.jpg")!important',
-        },
-        {
-            title: 'Blue denim shirt',
-            img: 'https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12a.jpg',
-            price: '$17.99',
-            hoverImg: 'url("https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12.jpg")!important',
-        },
-        {
-            title: 'Black denim jacket',
-            img: 'https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15a.jpg',
-            price: '$99.99',
-            hoverImg: 'url("https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15.jpg")!important',
-        },
-    ])
+    const [data, setData] = useState('')
+
+    const [loading, setIsLoading] = useState(false)
+
+    useEffect(() => {
+        setIsLoading(true)
+        fetch('https://fakestoreapi.com/products')
+            .then(res => res.json())
+            .then(json => setData(json.map(el => {
+                return {
+                    title: el.title,
+                    price: el.price,
+                    img: el.image,
+                    id: el.id,
+                }
+            })))
+            .catch(err => {console.log(err)})
+            .finally(() => {
+                setIsLoading(false)
+            })
+    }, []);
 
     return (
         <Box component="section" className={classes.cont}>
             <Grid container spacing={3}>
-                {data.map(el => (
-                    <Grid item xs={12} sm={4}>
-                        <CardItem data={el} />
-                    </Grid>
-                ))}
+                <Loader isLoading={loading} >
+                    {!!data.length && data.map(el => (
+                        <Grid item xs={12} sm={4}>
+                            <CardItem data={el} />
+                        </Grid>
+                    ))}
+                </Loader>
             </Grid>
         </Box>
     );

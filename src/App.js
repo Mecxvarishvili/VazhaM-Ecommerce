@@ -6,6 +6,7 @@ import Footer from './components/footer/Footer';
 import RouterTutorial from './components/RouterTutorial';
 import ProductPage from './components/main/productpage/ProductPage';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { Product, Home } from './components/main/routes';
 
 const App = () => {
   return (
@@ -14,10 +15,10 @@ const App = () => {
       <Header />
         <Box>
           <Switch>
-            <Route path="/product">
+            <Route path={Product}>
               <ProductPage />
             </Route>
-            <Route path="/">
+            <Route path={Home} exact>
               <Main />
             </Route>
           </Switch>
