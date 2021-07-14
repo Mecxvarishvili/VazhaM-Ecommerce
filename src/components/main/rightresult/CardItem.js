@@ -36,7 +36,7 @@ const CardItem = (props) => {
   /* const data = props.data */
 
   return (
-    <Link className={classes.link} to={ Product }>
+    <Link className={classes.link} to={Product.replace(":id", props.data.id)} >
     <Card className={classes.root}>
       <CardActionArea>
         <CardMedia

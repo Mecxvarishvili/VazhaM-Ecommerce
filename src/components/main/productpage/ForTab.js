@@ -1,11 +1,12 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core';
 import { Box, Grid } from '@material-ui/core';
-import { Link, Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+import { Link, Route, BrowserRouter as Router, Switch, useRouteMatch } from 'react-router-dom';
 import Description from './Description';
 import Information from './Information';
 import Reviews from './Reviews';
 import { useState } from 'react';
+import { Product, Tab1, Tab2, Tab3 } from '../routes';
 
 const useStyles = makeStyles(() => ({
     tabCont: {
@@ -58,6 +59,7 @@ const ForTab = () => {
         setTaba({tab1: '', tab2: '', tab3: classes.tabPlus,}) 
     }
 
+    let { path, url } = useRouteMatch();
 
 
     return (
@@ -65,24 +67,24 @@ const ForTab = () => {
             <Router>
                 <Grid className={classes.tabHeader} container>
                     <Grid className={classes.tab} item sm={4} >
-                        <Link onClick={description} className={`${classes.tabTitle} ${tab.tab1}`} to="/product">DESCRIPTION</Link>
+                        <Link onClick={description} className={`${classes.tabTitle} ${tab.tab1}`} exact to={ url + Tab1}>DESCRIPTION</Link>
                     </Grid>
                     <Grid className={classes.tab} item sm={4} >
-                        <Link onClick={information} className={`${classes.tabTitle} ${tab.tab2}`} to="/information">INFORMATION</Link>
+                        <Link onClick={information} className={`${classes.tabTitle} ${tab.tab2}`} to={ url + Tab2}>INFORMATION</Link>
                     </Grid>
                     <Grid className={classes.tab} item sm={4} >
-                        <Link onClick={reviews} className={`${classes.tabTitle} ${tab.tab3}`} to="/reviews">REVIEWS</Link>
+                        <Link onClick={reviews} className={`${classes.tabTitle} ${tab.tab3}`} to={ url + Tab3}>REVIEWS</Link>
                     </Grid>
                 </Grid>
                 <Box className={classes.tabFooter}>
                     <Switch>
-                        <Route path="/product">
+                        <Route exact path={ url + Tab1}>
                             <Description />
                         </Route>
-                        <Route path="/information">
+                        <Route path={ url + Tab2}>
                             <Information />
                         </Route>
-                        <Route path="/reviews">
+                        <Route path={ url + Tab3}>
                             <Reviews />
                         </Route>
                     </Switch>
