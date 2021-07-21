@@ -8,10 +8,13 @@ import ForTab from './ForTab';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import Api from '../../serializer/api';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
     main: {
         justifyContent: "center",
+        zIndex: "1",
     },
     outTitle: {
         backgroundColor: "#fbfbfb",
@@ -32,6 +35,18 @@ const useStyles = makeStyles(() => ({
     inCont: {
         marginBottom: "70px",
     },
+    spinnerCont: {
+        height: "80vh",
+        display: 'flex',
+    },
+    spinner: {
+        '& > * + *': {
+          marginLeft: theme.spacing(2),
+        },
+        margin: "auto auto",
+        color: "#1266f1",
+        alignItems: "stretch",
+    },
 }))
 
 const ProductPage = () => {
@@ -43,16 +58,8 @@ const ProductPage = () => {
     
     useEffect(() => {
         setIsLoading(true)
-        fetch('https://fakestoreapi.com/products')
-            .then(res => res.json())
-            .then(json => setData(json.map(el => {
-                return {
-                    title: el.title,
-                    price: el.price,
-                    img: el.image,
-                    id: el.id,
-                }
-            })))
+        Api.getProductItem(id)
+            .then(res => setData(res))
             .catch(err => {console.log(err)})
             .finally(() => {
                 setIsLoading(false)
@@ -60,6 +67,7 @@ const ProductPage = () => {
     }, []);
 
     return (
+        loading ? <Box className={classes.spinnerCont}><CircularProgress className={classes.spinner} /></Box> :
         <Box component="main" className={classes.main}>
             <Box className={classes.outTitle}>
                 <Box className={classes.title}>Product page</Box>
@@ -68,11 +76,11 @@ const ProductPage = () => {
                 <Grid sm={9} xs={9} className={classes.container}>
                     <Box className={classes.inCont} component="section">
                         <Grid container spacing={5}>
-                            <ProductImage />
-                            <AboutProduct />
+                            <ProductImage data={data} />
+                            <AboutProduct data={data} />
                         </Grid>
                     </Box>
-                    <ForTab />
+                    <ForTab data={data}/>
                 </Grid>
             </Box>
         </Box>

@@ -1,12 +1,15 @@
 import { Box } from '@material-ui/core';
 import React from 'react';
-import Header from './components/header/Header';
-import Main from './components/main/Main';
-import Footer from './components/footer/Footer';
-import RouterTutorial from './components/RouterTutorial';
-import ProductPage from './components/main/productpage/ProductPage';
+import Header from './components/layouts/header/Header';
+import Main from './components/layouts/main/Main';
+import Footer from './components/layouts/footer/Footer';
+import ProductPage from './components/pages/productpage/ProductPage';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import { Product, Home } from './components/main/routes';
+import { Product, Admin, Home, SIGNIN, SIGNUP } from './components/serializer/routes';
+import AddProduct from './components/admin/AddProduct';
+import AdminContent from './components/admin/AdminContent';
+import SignIn from './components/authorization/SignIn'
+import SignUp from './components/authorization/SignUp'
 
 const App = () => {
   return (
@@ -15,11 +18,14 @@ const App = () => {
       <Header />
         <Box>
           <Switch>
-            <Route path={Product}>
-              <ProductPage />
-            </Route>
+            <Route path={Product} component={ProductPage} />
+            <Route path={SIGNIN} component={SignIn} />
+            <Route path={SIGNUP} component={SignUp} />
             <Route path={Home} exact>
               <Main />
+            </Route>
+            <Route path={Admin} exact>
+              <AdminContent />
             </Route>
           </Switch>
         </Box>

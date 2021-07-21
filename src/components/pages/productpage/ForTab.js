@@ -6,7 +6,7 @@ import Description from './Description';
 import Information from './Information';
 import Reviews from './Reviews';
 import { useState } from 'react';
-import { Product, Tab1, Tab2, Tab3 } from '../routes';
+import { Product, Tab1, Tab2, Tab3 } from '../../serializer/routes';
 
 const useStyles = makeStyles(() => ({
     tabCont: {
@@ -40,7 +40,7 @@ const useStyles = makeStyles(() => ({
     },
 })) 
 
-const ForTab = () => {
+const ForTab = (props) => {
 
     const classes = useStyles()
     const aaa = classes.tabCont
@@ -79,7 +79,7 @@ const ForTab = () => {
                 <Box className={classes.tabFooter}>
                     <Switch>
                         <Route exact path={ url + Tab1}>
-                            <Description />
+                            <Description data={props.data}/>
                         </Route>
                         <Route path={ url + Tab2}>
                             <Information />

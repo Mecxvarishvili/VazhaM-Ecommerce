@@ -3,10 +3,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Box, Grid } from '@material-ui/core';
 import LeftFilter from './leftfilter/LeftFilter';
 import RightResult from './rightresult/RightResult';
-import Spinner from './Spinner';
 
 
 const useStyles = makeStyles((theme) => ({
+    main: {
+        zIndex: "1",
+    },
     "@media only screen and (max-width: 12000px)": {
         container: {
             width: '1140px',
@@ -66,7 +68,7 @@ const Main = () => {
 const classes = useStyles();
 
     return (
-        <Box component="main">    
+        <Box component="main" className={classes.main}>    
             <Box className={classes.forShop}>
                 <Box className={classes.shopBackg}>
                     <Box className={classes.shop}>Shop</Box>

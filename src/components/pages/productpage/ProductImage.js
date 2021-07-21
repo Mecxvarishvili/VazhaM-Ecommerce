@@ -22,13 +22,14 @@ const useStyles = makeStyles(() => ({
       height: 450,
       width: "100%",
       borderRadius: "10px",
+      backgroundSize: "contain",
     },
 }))
 
-const ProductImage = () => {
+const ProductImage = (props) => {
     const classes = useStyles()
-
-    const [img, setImg] = useState('https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15a.jpg')
+    const data = props.data
+    const [img, setImg] = useState(data.img)
 
     return (
         <Grid item container md={6} xs={12}>
@@ -37,7 +38,7 @@ const ProductImage = () => {
                   <CardActionArea>
                     <CardMedia
                       className={classes.media}
-                      image={img}
+                      image={data.img}
                       title="Contemplative Reptile"
                     />
                   </CardActionArea>

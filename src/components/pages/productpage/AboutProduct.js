@@ -51,6 +51,7 @@ const useStyles = makeStyles(() => ({
       fontWeight: "400",
       color: "#6c757d",
       marginBottom: "8px",
+      textTransform: "capitalize",
     },
     rating: {
         color: "#1266f1",
@@ -105,19 +106,17 @@ const rows = [
   createData('Delivery', 'USA, Europe'),
 ];
 
-const AboutProduct = () => {
+const AboutProduct = (props) => {
+    const data = props.data
     const classes = useStyles()
 
     return (
         <Grid item md={6} xs={12}>
-            <Box className={classes.title}>Blue denim shirt</Box>
-            <Box className={classes.category}>SHIRTS</Box>
+            <Box className={classes.title}>{data.title}</Box>
+            <Box className={classes.category}>{data.category}</Box>
             <Rating className={classes.rating} name="read-only" value="4" readOnly emptyIcon={<StarBorderIcon fontSize="inherit" />} />
-            <Box className={classes.price}>$17.99</Box>
-            <Box className={classes.describe}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, sapiente illo. 
-                Sit error voluptas repellat rerum quidem, soluta enim perferendis voluptates laboriosam. 
-                Distinctio, officia quis dolore quos sapiente tempore alias.
-            </Box>
+            <Box className={classes.price}>{data.price}</Box>
+            <Box className={classes.describe}>{data.describe}</Box>
             <Box>
               <Box className={classes.tabCont}>
                 <Box className={classes.tab1}>Model</Box>

@@ -1,8 +1,10 @@
 import React from 'react';
 import { CallMissedSharp, ViewList, ViewModule } from '@material-ui/icons';
-import { Box } from '@material-ui/core';
+import { Box, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Pagination from '@material-ui/lab/Pagination';
+import Cards from './Cards';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -22,9 +24,8 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-const Customizer = () => {
+const Customizer = (props) => {
     const classes = useStyles()
-
     return (
         <Box className={classes.viewCont}>
             <Box>
@@ -33,7 +34,8 @@ const Customizer = () => {
             </Box>
             <Box>label Example</Box>
             <Box>
-                <Pagination className={classes.pagination} count={3} />
+                <Button onClick={props.pag}>pag</Button>
+                <Pagination className={classes.pagination} count={34} />
             </Box>
         </Box>
     );
