@@ -68,11 +68,12 @@ const ProductFormik = () => {
       category: Yup.string()
         .required('Enter Category'),
     }),
-    onSubmit: () => {
+    onSubmit: (value, {resetForm}) => {
       setIsLoading(true)
       Api.addProduct(formik)
       setIsLoading(false)
       setSubmit(true)
+      resetForm(value)
     },
   });
   return (

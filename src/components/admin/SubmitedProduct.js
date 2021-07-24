@@ -29,13 +29,13 @@ const SubmitedProduct = (props) => {
 
     const classes = useStyles()
 
-    const [submit, setSubmit] = useState(props.submit)
+    const [submit, setSubmit] = useState(true)
     const addProduct = () => {
         setSubmit(false)
     }
     return (
         <Box>
-            {submit ? 
+            {props.submit && submit ? 
             <Box className={classes.container}>
                 <Box className={classes.title}>Product Is added</Box>
                 <Button className={classes.button} onClick={addProduct} >Add Another Product</Button>
