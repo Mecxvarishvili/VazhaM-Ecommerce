@@ -5,9 +5,6 @@ import { useState } from 'react';
 
 
 const PaginationControl = () => {
-
-
-    
     return (
         <Box>
             <Box>Pagination Control</Box>

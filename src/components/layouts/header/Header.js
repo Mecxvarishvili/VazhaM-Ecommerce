@@ -4,6 +4,22 @@ import { AppBar, Box, Toolbar, Typography, Button, Select, FormControl} from '@m
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { Link } from 'react-router-dom';
 import {Admin, Home, SIGNIN, SIGNUP } from '../../serializer/routes';
+import { faBars } from '@fortawesome/free-solid-svg-icons' 
+
+
+
+import IconButton from '@material-ui/core/IconButton';
+import InputBase from '@material-ui/core/InputBase';
+import Badge from '@material-ui/core/Badge';
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
+import MenuIcon from '@material-ui/icons/Menu';
+import SearchIcon from '@material-ui/icons/Search';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import MailIcon from '@material-ui/icons/Mail';
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import MoreIcon from '@material-ui/icons/MoreVert';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -30,19 +46,21 @@ const useStyles = makeStyles((theme) => ({
       textDecoration: "none",
     },
     signIn: {
-        fontWeight: '500',
-        textTransform: 'capitalize',
-        fontSize: '15px',
-        color: 'white',
+      textDecoration: "none",
+      fontWeight: '500',
+      textTransform: 'capitalize',
+      fontSize: '15px',
+      color: 'white',
     },
     signUp: {
-        border: '2px solid white',
-        borderRadius: '20px',
-        color: 'white',
-        fontSize: '10px',
-        fontWeight: '700',
-        letterSpacing: '0.1px',
-        padding: '8px 20px',
+      textDecoration: "none",
+      border: '2px solid white',
+      borderRadius: '20px',
+      color: 'white',
+      fontSize: '10px',
+      fontWeight: '700',
+      letterSpacing: '0.1px',
+      padding: '8px 20px',
     },
     shoppingCart: {
         color: 'white',
@@ -55,6 +73,7 @@ const useStyles = makeStyles((theme) => ({
     },
     after: {
       color: '#4f4f4f',
+      margin: "5px",
     },
     logo: {
       color: "black"
@@ -62,6 +81,16 @@ const useStyles = makeStyles((theme) => ({
     aftSignUp: {
       color: "#1266f1",
       border: '2px solid #1266f1',
+    },
+    icon: {
+      color: 'white',
+      width: "23px",
+      height: '23px',
+    },
+    aftIcon: {
+      color: "#1266f1",
+      width: "23px!important",
+      height: '23px',
     },
     option: {
       margin: "5px"
@@ -114,13 +143,34 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: "column",
         alignItems: "center",
     },
+    sectionDesktop: {
+      display: 'none',
+      [theme.breakpoints.up('md')]: {
+        display: 'flex',
+        alignItems: "center",
+      },
+    },
+    sectionMobile: {
+      display: 'flex',
+      width: "23px",
+      height: '23px',
+      [theme.breakpoints.up('md')]: {
+        display: 'none',
+      },
+    },
+    menuItem: {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      padding: "10px",
+    },
 }));
 
 const Header = () => {
     const classes = useStyles();
 
     const [navBackground, setNavBackground] = useState('appBarSolid')
-    const [color, setColor] = useState({logo: "logo", signUp: "aftSignUp", after: "after", aftImg: "optionImgAft", })
+    const [color, setColor] = useState({logo: "logo", signUp: "aftSignUp", after: "after", aftImg: "optionImgAft", aftIcon: "aftIcon",})
     const navRef = React.useRef()
     navRef.current = navBackground
 
@@ -136,6 +186,7 @@ const Header = () => {
                   signUp: "aftSignUp",
                   after: "after",
                   aftImg: "optionImgAft",
+                  aftIcon: "aftIcon",
                 })
             } else {
                 setNavBackground('appBarTransparent')
@@ -147,29 +198,107 @@ const Header = () => {
             document.removeEventListener('scroll', handleScroll)
         }
     }, [])
+
+    
+    
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+
+  const isMenuOpen = Boolean(anchorEl);
+  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  const handleMobileMenuClose = () => {
+    setMobileMoreAnchorEl(null);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+    handleMobileMenuClose();
+  };
+
+  const handleMobileMenuOpen = (event) => {
+    setMobileMoreAnchorEl(event.currentTarget);
+  };
+
+  const menuId = 'primary-search-account-menu';
+  const renderMenu = (
+    <Menu
+      anchorEl={anchorEl}
+      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      id={menuId}
+      keepMounted
+      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+      open={isMenuOpen}
+      onClose={handleMenuClose}
+    >
+      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+    </Menu>
+  );
+
+  const mobileMenuId = 'primary-search-account-menu-mobile';
+  const renderMobileMenu = (
+    <Menu
+      anchorEl={mobileMoreAnchorEl}
+      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      id={mobileMenuId}
+      keepMounted
+      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+      open={isMobileMenuOpen}
+      onClose={handleMobileMenuClose}
+    >
+      <Box className={classes.menuItem}>
+        <Button>
+          <Badge badgeContent={5} color="secondary"></Badge>
+          <ShoppingCartIcon className={`${classes.shoppingCart} ${classes[colRef.current.after]}`} />
+        </Button>
+        <Select className={`${classes.select} ${classes[colRef.current.aftImg]}`} value="0" src>
+          <option className={classes.optionSee} value="0">
+            <img className={`${classes.optionImg} ${classes[colRef.current.aftImg]}`} src="https://www.kindpng.com/picc/m/167-1672831_gb-united-kingdom-flag-icon-british-flag-hd.png"></img>
+          </option>
+          <option className={classes.option} value="Action">Action</option>
+          <option className={classes.option} value="aa">Another action</option>
+          <option className={classes.option} value="seh">Something else here</option>
+        </Select>
+        <Link className={`${classes.signIn} ${classes[colRef.current.after]}`} to={Home}>Shop</Link>
+        <Link className={`${classes.signIn} ${classes[colRef.current.after]}`} to={Admin}>Admin</Link>
+        <Link to={SIGNIN}className={`${classes.signIn} ${classes[colRef.current.after]}`}>Sign in</Link>
+        <Link to={SIGNUP} className={`${classes.signUp} ${classes[colRef.current.signUp]}`}>SIGN UP</Link>
+      </Box>
+    </Menu>
+  );
+
     return (
         <div className={classes.root}>
             <AppBar className={classes[navRef.current]}>
                 <Toolbar className={classes.toolBar}>
-                    <Link className={`${classes.title} ${classes[colRef.current.logo]}`} to={Home}>MDB</Link>
-                    <Link to={Admin}>Admin</Link>
-                  <Button>
-                    <ShoppingCartIcon className={`${classes.shoppingCart} ${classes[colRef.current.after]}`} />
-                  </Button>
-                  <Select className={`${classes.select} ${classes[colRef.current.aftImg]}`} value="0" src>
-                    <option className={classes.optionSee} value="0">
-                      <img className={`${classes.optionImg} ${classes[colRef.current.aftImg]}`} src="https://www.kindpng.com/picc/m/167-1672831_gb-united-kingdom-flag-icon-british-flag-hd.png"></img>
-                    </option>
-                    <option className={classes.option} value="Action">Action</option>
-                    <option className={classes.option} value="aa">Another action</option>
-                    <option className={classes.option} value="seh">Something else here</option>
-                  </Select>
-                  <Button className={`${classes.signIn} ${classes[colRef.current.after]}`}>Shop</Button>
-                  <Button className={`${classes.signIn} ${classes[colRef.current.after]}`}>Contact</Button>
-                  <Link to={SIGNIN}className={`${classes.signIn} ${classes[colRef.current.after]}`}>Sign in</Link>
-                  <Link to={SIGNUP} className={`${classes.signUp} ${classes[colRef.current.signUp]}`}>SIGN UP</Link>
+                  <Link className={`${classes.title} ${classes[colRef.current.logo]}`} to={Home}>MDB</Link>
+                  <Box className={classes.sectionDesktop}>
+                    <Button>
+                      <Badge badgeContent={5} color="secondary"></Badge>
+                      <ShoppingCartIcon className={`${classes.shoppingCart} ${classes[colRef.current.after]}`} />
+                    </Button>
+                    <Select className={`${classes.select} ${classes[colRef.current.aftImg]}`} value="0" src>
+                      <option className={classes.optionSee} value="0">
+                        <img className={`${classes.optionImg} ${classes[colRef.current.aftImg]}`} src="https://www.kindpng.com/picc/m/167-1672831_gb-united-kingdom-flag-icon-british-flag-hd.png"></img>
+                      </option>
+                      <option className={classes.option} value="Action">Action</option>
+                      <option className={classes.option} value="aa">Another action</option>
+                      <option className={classes.option} value="seh">Something else here</option>
+                    </Select>
+                    <Link className={`${classes.signIn} ${classes[colRef.current.after]}`} to={Home}>Shop</Link>
+                    <Link className={`${classes.signIn} ${classes[colRef.current.after]}`} to={Admin}>Admin</Link>
+                    <Link to={SIGNIN}className={`${classes.signIn} ${classes[colRef.current.after]}`}>Sign in</Link>
+                    <Link to={SIGNUP} className={`${classes.signUp} ${classes[colRef.current.signUp]}`}>SIGN UP</Link>
+                  </Box>
+                  <Box className={classes.sectionMobile}>
+                    
+                    <FontAwesomeIcon className={`${classes.icon} ${classes[colRef.current.aftIcon]}`} icon={faBars} onClick={handleMobileMenuOpen}/>
+                  </Box>
                 </Toolbar>
             </AppBar> 
+          {renderMobileMenu}
+          {renderMenu}
         </div >
         
     );

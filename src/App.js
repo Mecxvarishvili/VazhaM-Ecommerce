@@ -10,12 +10,13 @@ import AddProduct from './components/admin/AddProduct';
 import AdminContent from './components/admin/AdminContent';
 import SignIn from './components/authorization/SignIn'
 import SignUp from './components/authorization/SignUp'
+import TestHeader from './components/layouts/header/TestHeader';
 
 const App = () => {
   return (
     <Box>
       <Router>
-      <Header />
+        <Header />
         <Box>
           <Switch>
             <Route path={Product} component={ProductPage} />

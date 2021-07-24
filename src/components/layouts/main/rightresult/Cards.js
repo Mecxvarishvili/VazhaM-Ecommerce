@@ -27,7 +27,7 @@ const Cards = (props) => {
     const [loading, setIsLoading] = useState(false)
 
     
-    const letsGo = (el) => {
+    const products = (el) => {
         setIsLoading(true)
         Api.getProducts(el)
         .then(res => setData(res))
@@ -36,7 +36,7 @@ const Cards = (props) => {
             setIsLoading(false)})
     };
     useEffect(() => {
-        letsGo()
+        products()
     }, []);
 
     

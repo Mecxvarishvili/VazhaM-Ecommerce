@@ -4,7 +4,7 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import ProductFormik from './ProductFormik';
-import { Box } from '@material-ui/core';
+import { Box, Button } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -14,16 +14,26 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
-    width: "800px",
-    height: "500px",
+    margin: "0 20px",
+    border: '1px solid #1266f1',
+    width: "450px",
+    height: "530px",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
   title: {
     display: "flex",
     justifyContent: "center"
-  }
+  },
+  button: {
+      color: "white",
+      backgroundColor: "#1266f1",
+      fontSize: "12px",
+      padding: "10px",
+      "&:hover": {
+          backgroundColor: "#1266f1",
+      }
+  },
 }));
 
 const AddProduct = () => {
@@ -39,10 +49,8 @@ const AddProduct = () => {
   };
 
   return (
-    <div>
-      <button type="button" onClick={handleOpen}>
-          Add Product
-      </button>
+    <Box>
+      <Button className={classes.button} onClick={handleOpen}>Add Product </Button>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -61,7 +69,7 @@ const AddProduct = () => {
           </div>
         </Fade>
       </Modal>
-    </div>
+    </Box>
   );
 }
 
