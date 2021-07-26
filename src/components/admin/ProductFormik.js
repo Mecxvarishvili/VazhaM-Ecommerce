@@ -73,7 +73,7 @@ const ProductFormik = () => {
       Api.addProduct(formik)
       setIsLoading(false)
       setSubmit(true)
-      resetForm(value)
+      resetForm()
     },
   });
   return (

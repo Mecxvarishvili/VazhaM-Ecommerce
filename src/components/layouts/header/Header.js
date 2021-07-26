@@ -5,21 +5,12 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { Link } from 'react-router-dom';
 import {Admin, Home, SIGNIN, SIGNUP } from '../../serializer/routes';
 import { faBars } from '@fortawesome/free-solid-svg-icons' 
-
-
-
-import IconButton from '@material-ui/core/IconButton';
-import InputBase from '@material-ui/core/InputBase';
 import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import MailIcon from '@material-ui/icons/Mail';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import MoreIcon from '@material-ui/icons/MoreVert';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { AuthContext } from '../../store/UserContextProvider';
+import { useContext } from 'react';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -169,6 +160,12 @@ const useStyles = makeStyles((theme) => ({
 const Header = () => {
     const classes = useStyles();
 
+    const auth = useContext(AuthContext)
+
+    useEffect(() =>{
+      console.log(auth.isLoggedIn)
+    }, [])
+
     const [navBackground, setNavBackground] = useState('appBarSolid')
     const [color, setColor] = useState({logo: "logo", signUp: "aftSignUp", after: "after", aftImg: "optionImgAft", aftIcon: "aftIcon",})
     const navRef = React.useRef()
@@ -236,6 +233,10 @@ const Header = () => {
     </Menu>
   );
 
+  const SignOut = () => {
+    auth.setAuth(false)
+  }
+
   const mobileMenuId = 'primary-search-account-menu-mobile';
   const renderMobileMenu = (
     <Menu
@@ -262,45 +263,48 @@ const Header = () => {
         </Select>
         <Link className={`${classes.signIn} ${classes[colRef.current.after]}`} to={Home}>Shop</Link>
         <Link className={`${classes.signIn} ${classes[colRef.current.after]}`} to={Admin}>Admin</Link>
-        <Link to={SIGNIN}className={`${classes.signIn} ${classes[colRef.current.after]}`}>Sign in</Link>
-        <Link to={SIGNUP} className={`${classes.signUp} ${classes[colRef.current.signUp]}`}>SIGN UP</Link>
+        {auth.isLoggedIn ? <Button onClick={SignOut} className={`${classes.signUp} ${classes[colRef.current.signUp]}`}>Sign Out</Button> :
+        <>
+          <Link to={SIGNIN}className={`${classes.signIn} ${classes[colRef.current.after]}`}>Sign in</Link>
+          <Link to={SIGNUP} className={`${classes.signUp} ${classes[colRef.current.signUp]}`}>SIGN UP</Link> 
+        </>}
       </Box>
     </Menu>
   );
 
     return (
-        <div className={classes.root}>
-            <AppBar className={classes[navRef.current]}>
-                <Toolbar className={classes.toolBar}>
-                  <Link className={`${classes.title} ${classes[colRef.current.logo]}`} to={Home}>MDB</Link>
-                  <Box className={classes.sectionDesktop}>
-                    <Button>
-                      <Badge badgeContent={5} color="secondary"></Badge>
-                      <ShoppingCartIcon className={`${classes.shoppingCart} ${classes[colRef.current.after]}`} />
-                    </Button>
-                    <Select className={`${classes.select} ${classes[colRef.current.aftImg]}`} value="0" src>
-                      <option className={classes.optionSee} value="0">
-                        <img className={`${classes.optionImg} ${classes[colRef.current.aftImg]}`} src="https://www.kindpng.com/picc/m/167-1672831_gb-united-kingdom-flag-icon-british-flag-hd.png"></img>
-                      </option>
-                      <option className={classes.option} value="Action">Action</option>
-                      <option className={classes.option} value="aa">Another action</option>
-                      <option className={classes.option} value="seh">Something else here</option>
-                    </Select>
-                    <Link className={`${classes.signIn} ${classes[colRef.current.after]}`} to={Home}>Shop</Link>
-                    <Link className={`${classes.signIn} ${classes[colRef.current.after]}`} to={Admin}>Admin</Link>
-                    <Link to={SIGNIN}className={`${classes.signIn} ${classes[colRef.current.after]}`}>Sign in</Link>
-                    <Link to={SIGNUP} className={`${classes.signUp} ${classes[colRef.current.signUp]}`}>SIGN UP</Link>
-                  </Box>
-                  <Box className={classes.sectionMobile}>
-                    
-                    <FontAwesomeIcon className={`${classes.icon} ${classes[colRef.current.aftIcon]}`} icon={faBars} onClick={handleMobileMenuOpen}/>
-                  </Box>
-                </Toolbar>
-            </AppBar> 
-          {renderMobileMenu}
-          {renderMenu}
-        </div >
-        
+        <AppBar className={classes[navRef.current]}>
+            <Toolbar className={classes.toolBar}>
+              <Link className={`${classes.title} ${classes[colRef.current.logo]}`} to={Home}>MDB</Link>
+              <Box className={classes.sectionDesktop}>
+                <Button>
+                  <Badge badgeContent={5} color="secondary"></Badge>
+                  <ShoppingCartIcon className={`${classes.shoppingCart} ${classes[colRef.current.after]}`} />
+                </Button>
+                <Select className={`${classes.select} ${classes[colRef.current.aftImg]}`} value="0" src>
+                  <option className={classes.optionSee} value="0">
+                    <img className={`${classes.optionImg} ${classes[colRef.current.aftImg]}`} src="https://www.kindpng.com/picc/m/167-1672831_gb-united-kingdom-flag-icon-british-flag-hd.png"></img>
+                  </option>
+                  <option className={classes.option} value="Action">Action</option>
+                  <option className={classes.option} value="aa">Another action</option>
+                  <option className={classes.option} value="seh">Something else here</option>
+                </Select>
+                <Link className={`${classes.signIn} ${classes[colRef.current.after]}`} to={Home}>Shop</Link>
+                <Link className={`${classes.signIn} ${classes[colRef.current.after]}`} to={Admin}>Admin</Link>
+                {auth.isLoggedIn ? <Button onClick={SignOut} className={`${classes.signUp} ${classes[colRef.current.signUp]}`}>Sign Out</Button> :
+                <>
+                  <Link to={SIGNIN}className={`${classes.signIn} ${classes[colRef.current.after]}`}>Sign in</Link>
+                  <Link to={SIGNUP} className={`${classes.signUp} ${classes[colRef.current.signUp]}`}>SIGN UP</Link> 
+                </>}
+              </Box>
+              <Box className={classes.sectionMobile}>
+                
+                <FontAwesomeIcon className={`${classes.icon} ${classes[colRef.current.aftIcon]}`} icon={faBars} onClick={handleMobileMenuOpen}/>
+              </Box>
+            </Toolbar>
+            {renderMobileMenu}
+            {renderMenu}
+        </AppBar> 
     );
 }
 export default Header;

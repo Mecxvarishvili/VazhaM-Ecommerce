@@ -23,13 +23,13 @@ const useStyles = makeStyles((theme) => ({
 const Cards = (props) => {
     const classes = useStyles()
     
-    const [data, setData] = useState('')
+    const [data, setData] = useState({page: '', data: '',})
     const [loading, setIsLoading] = useState(false)
 
     
-    const products = (el) => {
+    const products = () => {
         setIsLoading(true)
-        Api.getProducts(el)
+        Api.getProducts()
         .then(res => setData(res))
         .catch(err => {console.log(err)})
         .finally(() => {
@@ -45,7 +45,7 @@ const Cards = (props) => {
         <Box component="section" className={classes.cont}>
             <Grid container spacing={3}>
                 {loading ? <CircularProgress className={classes.spinner} /> : 
-                    !!data.length && data.map(el => (
+                    !!data.data.length && data.data.map(el => (
                         <Grid item xs={12} sm={6} md={4}>
                             <CardItem data={el} />
                         </Grid>

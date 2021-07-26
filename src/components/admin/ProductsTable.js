@@ -45,7 +45,7 @@ function createData(name, calories, fat, carbs, protein) {
 
 const ProductsTable = () => {
     const classes = useStyles()
-    const [data, setData] = useState('')
+    const [data, setData] = useState({data: '',})
     const [limit, setLimit] = useState(20);
     const [loading, setIsLoading] = useState(false)
 
@@ -96,7 +96,7 @@ const ProductsTable = () => {
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                    {!!data.length && data.map(el => (<TableRow key={el.name}>
+                    {!!data.data.length && data.data.map(el => (<TableRow key={el.name}>
                       <TableCell component="th" scope="row">
                         {el.id}
                       </TableCell>

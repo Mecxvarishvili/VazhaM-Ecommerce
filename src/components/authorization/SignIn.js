@@ -5,10 +5,13 @@ import * as Yup from 'yup';
 import { makeStyles } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import { blue } from '@material-ui/core/colors';
-import { Link } from 'react-router-dom';
-import { SIGNUP } from "../serializer/routes"
+import { Link, useHistory } from 'react-router-dom';
+import { SIGNUP, Admin } from "../serializer/routes"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFacebookF, faTwitter, faLinkedinIn, faGithub } from '@fortawesome/free-brands-svg-icons' 
+import { faFacebookF, faTwitter, faLinkedinIn, faGithub } from '@fortawesome/free-brands-svg-icons'
+import Api from '../serializer/api' 
+import { AuthContext } from '../store/UserContextProvider'
+import { useContext } from 'react';
 
 
 const BlueCheckbox = withStyles({
@@ -182,6 +185,9 @@ const useStyles = makeStyles(() => ({
 
 const SignIn = () => {
 
+    const auth = useContext(AuthContext)
+    const history = useHistory()
+
     const classes = useStyles()
 
     const formik = useFormik({
@@ -196,7 +202,9 @@ const SignIn = () => {
           .required('Enter Password'),
       }),
       onSubmit: values => {
-        alert(JSON.stringify(values, null, 2));
+        Api.getSignIn(formik)
+        auth.setAuth(true)
+        history.replace(Admin)
       },
     });
     return (
@@ -221,7 +229,7 @@ const SignIn = () => {
                         <Box className={classes.footerCont}>
                             <Button className={classes.button} type="submit">Sign In</Button>
                             <Box className={classes.free}>
-                                Not a membeer?
+                                Not a member?
                                 <Link className={classes.link} to={SIGNUP}> Register</Link>
                             </Box>
                             <Box className={classes.free}>or sign in with:</Box>

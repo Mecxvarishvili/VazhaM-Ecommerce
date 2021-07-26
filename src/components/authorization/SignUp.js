@@ -5,10 +5,13 @@ import * as Yup from 'yup';
 import { makeStyles } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import { blue } from '@material-ui/core/colors';
-import { Link } from 'react-router-dom';
-import { SIGNIN } from "../serializer/routes"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFacebookF, faTwitter, faLinkedinIn, faGithub } from '@fortawesome/free-brands-svg-icons' 
+import { Link, useHistory } from 'react-router-dom';
+import { Home, SIGNIN } from "../serializer/routes";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFacebookF, faTwitter, faLinkedinIn, faGithub } from '@fortawesome/free-brands-svg-icons';
+import Api from '../serializer/api'; 
+import { useContext } from 'react';
+import { AuthContext } from '../store/UserContextProvider';
 
 
 const BlueCheckbox = withStyles({
@@ -212,6 +215,10 @@ const SignUp = () => {
 
     const classes = useStyles()
 
+    const history = useHistory()
+
+    const auth = useContext(AuthContext)
+
     const formik = useFormik({
       initialValues: {
         email: '',
@@ -231,7 +238,9 @@ const SignUp = () => {
           .required('Enter phone number')
       }),
       onSubmit: values => {
-        alert(JSON.stringify(values, null, 2));
+        Api.getSignUp(formik)
+        auth.setAuth(true)
+        history.replace(Home)
       },
     });
     return (

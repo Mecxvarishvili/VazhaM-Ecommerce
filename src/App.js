@@ -11,26 +11,23 @@ import AdminContent from './components/admin/AdminContent';
 import SignIn from './components/authorization/SignIn'
 import SignUp from './components/authorization/SignUp'
 import TestHeader from './components/layouts/header/TestHeader';
+import PrivateRoute from './components/authorization/PrivateRoute';
 
 const App = () => {
   return (
     <Box>
       <Router>
         <Header />
-        <Box>
           <Switch>
             <Route path={Product} component={ProductPage} />
             <Route path={SIGNIN} component={SignIn} />
             <Route path={SIGNUP} component={SignUp} />
-            <Route path={Home} exact>
-              <Main />
-            </Route>
-            <Route path={Admin} exact>
+            <Route path={Home} exact component={Main} />
+            <PrivateRoute path={Admin}>
               <AdminContent />
-            </Route>
+            </PrivateRoute>
           </Switch>
-        </Box>
-      <Footer />
+        <Footer />
       </Router>
     </Box>
   );

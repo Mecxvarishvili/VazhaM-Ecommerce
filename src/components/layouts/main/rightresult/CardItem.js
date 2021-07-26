@@ -19,11 +19,6 @@ const useStyles = makeStyles(() => ({
         backgroundImage: (props) => props.data.hoverImg,
         transition: "0.7s",
     },
-    title: {
-      "& .MuiTypography-root": {
-        margin: " 0 auto"
-      }
-    },
   },
   link: {
     textDecoration: "none"
