@@ -7,6 +7,8 @@ import Information from './Information';
 import Reviews from './Reviews';
 import { useState } from 'react';
 import { Product, Tab1, Tab2, Tab3 } from '../../serializer/routes';
+import { useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const useStyles = makeStyles(() => ({
     tabCont: {
@@ -45,26 +47,43 @@ const ForTab = (props) => {
     const classes = useStyles()
     const aaa = classes.tabCont
 
-    const [tab, setTaba] = useState({tab1: classes.tabPlus, tab2: '', tab3: '',})
+    const location = useLocation()
+
+    let { path, url } = useRouteMatch();
+
+    /* useEffect(() =>{
+        switch (location.pathname) {
+            case url + Tab1:
+                setTaba({tab1: classes.tabPlus, tab2: '', tab3: '',})
+                break;
+            case url + Tab2:
+                setTaba({tab1: '', tab2: classes.tabPlus, tab3: '',}) 
+                break;
+            case Tab3: 
+                setTaba({tab1: '', tab2: '', tab3: classes.tabPlus,}) 
+                break;
+        }
+
+    }) */
+
+    const [tab, setTaba] = useState({tab1: classes.tabPlus, tab2: '', tab3: ''})
 
     function description() { 
-        setTaba({tab1: classes.tabPlus, tab2: '', tab3: '',}) 
+        setTaba({tab1: classes.tabPlus, tab2: '', tab3: '',})
     }
 
     function information() { 
         setTaba({tab1: '', tab2: classes.tabPlus, tab3: '',}) 
+        console.log(location) 
     }
 
     function reviews() { 
         setTaba({tab1: '', tab2: '', tab3: classes.tabPlus,}) 
     }
 
-    let { path, url } = useRouteMatch();
-
 
     return (
         <Box className={classes.tabCont} component="section">
-            <Router>
                 <Grid className={classes.tabHeader} container>
                     <Grid className={classes.tab} item sm={4} >
                         <Link onClick={description} className={`${classes.tabTitle} ${tab.tab1}`} exact to={ url + Tab1}>DESCRIPTION</Link>
@@ -81,16 +100,13 @@ const ForTab = (props) => {
                         <Route exact path={ url + Tab1}>
                             <Description data={props.data}/>
                         </Route>
-                        <Route path={ url + Tab2}>
-                            <Information />
-                        </Route>
+                        <Route path={ url + Tab2} component={Information} />
                         <Route path={ url + Tab3}>
-                            <Reviews />
+                            <Reviews data={props.data}/>
                         </Route>
                     </Switch>
                 </Box>
                 <Box className={classes.line}/>
-            </Router>
         </Box>
     );
 };

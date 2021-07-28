@@ -203,6 +203,7 @@ const SignIn = () => {
       }),
       onSubmit: values => {
         Api.getSignIn(formik)
+        Api.getToken()
         auth.setAuth(true)
         history.replace(Admin)
       },

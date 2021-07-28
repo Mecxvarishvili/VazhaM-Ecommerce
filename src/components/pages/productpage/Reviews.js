@@ -53,12 +53,12 @@ const useStyles = makeStyles(() => ({
     },
 }))
 
-const Reviews = () => {
+const Reviews = (props) => {
     const classes = useStyles()
 
     return (
         <Box>
-            <Box className={classes.title}>1 review for Fantasy T-shirt</Box>
+            <Box className={classes.title}>1 review for {props.data.title}</Box>
             <Grid className={classes.profileOutCont} container >
                 <Grid item sm={1}>
                     <Box src="https://mdbootstrap.com/img/Photos/Others/placeholder1.jpg" component="img" />

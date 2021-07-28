@@ -23,9 +23,7 @@ const App = () => {
             <Route path={SIGNIN} component={SignIn} />
             <Route path={SIGNUP} component={SignUp} />
             <Route path={Home} exact component={Main} />
-            <PrivateRoute path={Admin}>
-              <AdminContent />
-            </PrivateRoute>
+            <PrivateRoute path={Admin} component={AdminContent} />
           </Switch>
         <Footer />
       </Router>

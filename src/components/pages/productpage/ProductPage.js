@@ -1,7 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Box, Button } from '@material-ui/core'
-import Rating from '@material-ui/lab/Rating';
 import ProductImage from './ProductImage';
 import AboutProduct from './AboutProduct';
 import ForTab from './ForTab';
@@ -10,6 +9,7 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Api from '../../serializer/api';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import SimpleTabs from './SimpleTabs';
 
 const useStyles = makeStyles((theme) => ({
     main: {

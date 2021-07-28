@@ -36,6 +36,13 @@ const Api = {
             method: "POST",
             body:JSON.stringify(serializeSignUp(formik))
         })
+    },
+
+    getToken: () => {
+        return fetch ('http://159.65.126.180/api/auth/me', {
+            method: "POSTMAN",
+        })
+            .then(res => res.json())
     }
 }
 
