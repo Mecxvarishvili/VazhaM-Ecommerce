@@ -1,48 +1,51 @@
 import { serializeProductItem, serializeProducts, serializeAddProduct, serializeProductLimit, serializeSignIn, serializeSignUp } from "./serialize";
 
 const Api = {
-    getProducts: ()=> {
-        return fetch('http://159.65.126.180/api/products')
+    getProducts: (page)=> {
+        return fetch(`http://159.65.126.180/api/products?page=${page}`)
             .then(res => res.json())
             .then(json => {{return serializeProducts(json)}})
     },
+
     getProductItem: (id) => {
         return fetch(`http://159.65.126.180/api/products/${id}`)
         .then(res => res.json())
         .then(el => {{return serializeProductItem(el)}})
     },
     getProductLimit: (limit) => {
-        return fetch(`http://159.65.126.180/api/products?limit=${limit}`)
+        return fetch(`https://fakestoreapi.com/products?limit=${limit}`)
                 .then(res=>res.json())
                 .then(json=> {{return serializeProductLimit(json)}})
     },
     addProduct: (formik) => {
-        return fetch('http://159.65.126.180/api/products',{
+        return fetch('https://fakestoreapi.com/products',{
             method:"POST",
             body:JSON.stringify(serializeAddProduct(formik))
         })
             .then(res=>res.json())
     },
 
-    getSignIn: (formik) => {
+    getSignIn: (values) => {
         return fetch('http://159.65.126.180/api/auth/login', {
             method: "POST",
-            body:JSON.stringify(serializeSignIn(formik))
+            body:JSON.stringify(serializeSignIn(values))
         })
     },
 
-    getSignUp: (formik) => {
+    getSignUp: (values) => {
         return fetch('http://159.65.126.180/api/register', {
             method: "POST",
-            body:JSON.stringify(serializeSignUp(formik))
+            body:JSON.stringify(serializeSignUp(values))
         })
     },
 
-    getToken: () => {
+    getToken: (values) => {
         return fetch ('http://159.65.126.180/api/auth/me', {
-            method: "POSTMAN",
+            method: "POST",
+            body:JSON.stringify(serializeSignIn(values))
         })
             .then(res => res.json())
+            .then(json => console.log(json))
     }
 }
 

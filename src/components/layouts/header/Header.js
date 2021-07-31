@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Box, Toolbar, Typography, Button, Select, FormControl} from '@material-ui/core';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import {Admin, Home, SIGNIN, SIGNUP } from '../../serializer/routes';
 import { faBars } from '@fortawesome/free-solid-svg-icons' 
 import Badge from '@material-ui/core/Badge';
@@ -160,10 +160,10 @@ const useStyles = makeStyles((theme) => ({
 const Header = () => {
     const classes = useStyles();
 
-    const auth = useContext(AuthContext)
+    const data = useContext(AuthContext)
 
     useEffect(() =>{
-      console.log(auth.isLoggedIn)
+      console.log(location.pathname)
     }, [])
 
     const [navBackground, setNavBackground] = useState('appBarSolid')
@@ -173,9 +173,17 @@ const Header = () => {
 
     const colRef = React.useRef()
     colRef.current = color
+
+    const location = useLocation()
+
     useEffect(() => {
         const handleScroll = () => {
+          /* if (location.pathname = Home) {
+            const show = window.scrollY >= 30
+          }else {
             const show = window.scrollY >= 0
+          } */
+          const show = window.scrollY >= 0
             if (show) {
                 setNavBackground('appBarSolid')
                 setColor({
@@ -194,7 +202,12 @@ const Header = () => {
         return () => {
             document.removeEventListener('scroll', handleScroll)
         }
+        console.log(location)
     }, [])
+
+    function forHistory() {
+      console.log(location.pathname)
+    }
 
     
     
@@ -234,7 +247,8 @@ const Header = () => {
   );
 
   const SignOut = () => {
-    auth.setAuth(false)
+    data.setAuth(false)
+    localStorage.removeItem("Auth");
   }
 
   const mobileMenuId = 'primary-search-account-menu-mobile';
@@ -263,7 +277,7 @@ const Header = () => {
         </Select>
         <Link className={`${classes.signIn} ${classes[colRef.current.after]}`} to={Home}>Shop</Link>
         <Link className={`${classes.signIn} ${classes[colRef.current.after]}`} to={Admin}>Admin</Link>
-        {auth.isLoggedIn ? <Button onClick={SignOut} className={`${classes.signUp} ${classes[colRef.current.signUp]}`}>Sign Out</Button> :
+        {data.isLoggedIn ? <Button onClick={SignOut} className={`${classes.signUp} ${classes[colRef.current.signUp]}`}>Sign Out</Button> :
         <>
           <Link to={SIGNIN}className={`${classes.signIn} ${classes[colRef.current.after]}`}>Sign in</Link>
           <Link to={SIGNUP} className={`${classes.signUp} ${classes[colRef.current.signUp]}`}>SIGN UP</Link> 
@@ -291,7 +305,7 @@ const Header = () => {
                 </Select>
                 <Link className={`${classes.signIn} ${classes[colRef.current.after]}`} to={Home}>Shop</Link>
                 <Link className={`${classes.signIn} ${classes[colRef.current.after]}`} to={Admin}>Admin</Link>
-                {auth.isLoggedIn ? <Button onClick={SignOut} className={`${classes.signUp} ${classes[colRef.current.signUp]}`}>Sign Out</Button> :
+                {data.isLoggedIn ? <Button onClick={SignOut} className={`${classes.signUp} ${classes[colRef.current.signUp]}`}>Sign Out</Button> :
                 <>
                   <Link to={SIGNIN}className={`${classes.signIn} ${classes[colRef.current.after]}`}>Sign in</Link>
                   <Link to={SIGNUP} className={`${classes.signUp} ${classes[colRef.current.signUp]}`}>SIGN UP</Link> 

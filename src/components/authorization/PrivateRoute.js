@@ -4,15 +4,15 @@ import { AuthContext } from '../store/UserContextProvider';
 import { SIGNIN } from '../serializer/routes'
 
 const PrivateRoute = ({component: Component, ...rest}) => {
-    const auth = useContext(AuthContext)
+    const data = useContext(AuthContext)
     return (
         <Route
           {...rest}
           render={({ location }) =>
-            auth.isLoggedIn ? (
+            data.isLoggedIn ? (
               <Component />
             ) : (
-              <Redirect to={{pathname: SIGNIN, state: { from: location }}}/>
+              <Redirect to={{pathname: SIGNIN}}/>
             )
           }
         />

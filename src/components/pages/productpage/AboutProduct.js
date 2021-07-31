@@ -115,7 +115,7 @@ const AboutProduct = (props) => {
             <Box className={classes.title}>{data.title}</Box>
             <Box className={classes.category}>{data.category}</Box>
             <Rating className={classes.rating} name="read-only" value="4" readOnly emptyIcon={<StarBorderIcon fontSize="inherit" />} />
-            <Box className={classes.price}>{data.price}</Box>
+            <Box className={classes.price}>${data.price}</Box>
             <Box className={classes.describe}>{data.describe}</Box>
             <Box>
               <Box className={classes.tabCont}>

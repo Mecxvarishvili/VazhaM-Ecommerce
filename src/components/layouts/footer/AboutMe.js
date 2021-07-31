@@ -14,7 +14,6 @@ const useStyles = makeStyles(() => ({
         height: "1px",
     },
     describe: {
-        width: "255px",
         paddingTop: "8px",
         fontSize: "15px",
         lineHeight: "1.8"

@@ -217,7 +217,7 @@ const SignUp = () => {
 
     const history = useHistory()
 
-    const auth = useContext(AuthContext)
+    const data = useContext(AuthContext)
 
     const formik = useFormik({
       initialValues: {
@@ -238,9 +238,10 @@ const SignUp = () => {
           .required('Enter phone number')
       }),
       onSubmit: values => {
-        Api.getSignUp(formik)
-        auth.setAuth(true)
+        Api.getSignUp(values)
         history.replace(Home)
+        localStorage.setItem("Auth", true);
+        data.setAuth(true)
       },
     });
     return (

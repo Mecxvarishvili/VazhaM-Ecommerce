@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import { blue } from '@material-ui/core/colors';
 import { Link, useHistory } from 'react-router-dom';
-import { SIGNUP, Admin } from "../serializer/routes"
+import { SIGNUP, Admin, Home } from "../serializer/routes"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebookF, faTwitter, faLinkedinIn, faGithub } from '@fortawesome/free-brands-svg-icons'
 import Api from '../serializer/api' 
@@ -185,7 +185,7 @@ const useStyles = makeStyles(() => ({
 
 const SignIn = () => {
 
-    const auth = useContext(AuthContext)
+    const data = useContext(AuthContext)
     const history = useHistory()
 
     const classes = useStyles()
@@ -202,10 +202,11 @@ const SignIn = () => {
           .required('Enter Password'),
       }),
       onSubmit: values => {
-        Api.getSignIn(formik)
-        Api.getToken()
-        auth.setAuth(true)
-        history.replace(Admin)
+        Api.getSignIn(values)
+        Api.getToken(values)
+        history.replace(Home)
+        localStorage.setItem("Auth", true);
+        data.setAuth(true)
       },
     });
     return (

@@ -32,14 +32,15 @@ export function serializeAddProduct(formik){
             price: formik.values.price,
             description: formik.values.description,
             image: formik.values.image,
-            category: formik.values.category}
+            category: formik.values.category
+        }
     }
 }
 
 export function serializeProductLimit(data){
     return {
         page: data.page,
-        data: data.data.map(el => {
+        data: data.map(el => {
             return {
                 id: el.id,
                 title: el.title,
@@ -51,18 +52,18 @@ export function serializeProductLimit(data){
     }
 }
 
-export function serializeSignIn(formik) {
+export function serializeSignIn(values) {
     return {
-        email: formik.values.email,
-        password: formik.values.password
+        email: values.email,
+        password: values.password
     }
 }
 
-export function serializeSignUp(formik) {
+export function serializeSignUp(values) {
     return {
-        name: formik.values.firstName,
-        email: formik.values.email,
-        password: formik.values.password,
-        password_confirmation: formik.values.password
+        name: values.firstName,
+        email: values.email,
+        password: values.password,
+        password_confirmation: values.password
     }
 }

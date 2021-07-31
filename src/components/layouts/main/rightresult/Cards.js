@@ -29,7 +29,7 @@ const Cards = (props) => {
     
     const products = () => {
         setIsLoading(true)
-        Api.getProducts()
+        Api.getProducts(props.page)
         .then(res => setData(res))
         .catch(err => {console.log(err)})
         .finally(() => {
@@ -37,7 +37,7 @@ const Cards = (props) => {
     };
     useEffect(() => {
         products()
-    }, []);
+    }, [props.page]);
 
     
 
