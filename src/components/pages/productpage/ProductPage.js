@@ -10,16 +10,18 @@ import { useParams } from 'react-router-dom';
 import Api from '../../serializer/api';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import SimpleTabs from './SimpleTabs';
+import Loader from '../../Loader';
 
 const useStyles = makeStyles((theme) => ({
     main: {
         justifyContent: "center",
         zIndex: "1",
+        marginTop: "60px",
+        minHeight: "80vh",
     },
     outTitle: {
         backgroundColor: "#fbfbfb",
         color: "#4f4f4f",
-        marginTop: "60px",
         marginBottom: "30px",
         display: "flex",
     },
@@ -34,18 +36,6 @@ const useStyles = makeStyles((theme) => ({
     },
     inCont: {
         marginBottom: "70px",
-    },
-    spinnerCont: {
-        height: "80vh",
-        display: 'flex',
-    },
-    spinner: {
-        '& > * + *': {
-          marginLeft: theme.spacing(2),
-        },
-        margin: "auto auto",
-        color: "#1266f1",
-        alignItems: "stretch",
     },
 }))
 
@@ -67,22 +57,23 @@ const ProductPage = () => {
     }, []);
 
     return (
-        loading ? <Box className={classes.spinnerCont}><CircularProgress className={classes.spinner} /></Box> :
         <Box component="main" className={classes.main}>
             <Box className={classes.outTitle}>
                 <Box className={classes.title}>Product page</Box>
             </Box>
-            <Box >
-                <Grid sm={9} xs={9} className={classes.container}>
-                    <Box className={classes.inCont} component="section">
-                        <Grid container spacing={5}>
-                            <ProductImage data={data} />
-                            <AboutProduct data={data} />
-                        </Grid>
-                    </Box>
-                    <ForTab data={data}/>
-                </Grid>
-            </Box>
+            <Loader loading={loading}>
+                <Box >
+                    <Grid sm={9} xs={9} className={classes.container}>
+                        <Box className={classes.inCont} component="section">
+                            <Grid container spacing={5}>
+                                <ProductImage data={data} />
+                                <AboutProduct data={data} />
+                            </Grid>
+                        </Box>
+                        <ForTab data={data}/>
+                    </Grid>
+                </Box>
+            </Loader>
         </Box>
     );
 };

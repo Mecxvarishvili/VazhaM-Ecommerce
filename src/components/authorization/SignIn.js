@@ -185,10 +185,11 @@ const useStyles = makeStyles(() => ({
 
 const SignIn = () => {
 
-    const data = useContext(AuthContext)
+    const context = useContext(AuthContext)
     const history = useHistory()
 
     const classes = useStyles()
+
 
     const formik = useFormik({
       initialValues: {
@@ -202,11 +203,11 @@ const SignIn = () => {
           .required('Enter Password'),
       }),
       onSubmit: values => {
-        Api.getSignIn(values)
-        Api.getToken(values)
+        Api.getSignIn(values, context.setToken)
+        Api.getToken(context.token, context.setUserData)
+        localStorage.setItem("Token", context.token.token.access_token)
         history.replace(Home)
-        localStorage.setItem("Auth", true);
-        data.setAuth(true)
+        context.setAuth(true)
       },
     });
     return (
@@ -223,6 +224,7 @@ const SignIn = () => {
 
                             <TextField className={classes.forInput} size="small" id="outlined-basic" label="Your Password" variant="outlined"  id="password" type="password" {...formik.getFieldProps('password')} />
                             {formik.touched.password && formik.errors.password ? (<div className={classes.err} >{formik.errors.password}</div>) : null}
+                            {context.token ? <Box className={classes.err}>Email or password is not correct</Box> : <></> }
                             <Box className={classes.bottom}>
                                 <FormControlLabel className={classes.remember} control={<BlueCheckbox name="rememberMe" />} label="REMEMBER ME" />
                                 <Link className={classes.link}>Forgot password?</Link>

@@ -11,6 +11,7 @@ import Paper from '@material-ui/core/Paper';
 import { useEffect } from 'react';
 import Api from '../serializer/api';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Loader from '../Loader';
 
 const useStyles = makeStyles((theme) => ({
     table: {
@@ -84,7 +85,7 @@ const ProductsTable = () => {
               <MenuItem value={20}>Twenty</MenuItem>
             </Select>
             <Box>
-            {loading ? <Box className={classes.spinCont} ><CircularProgress className={classes.spinner} /></Box> : 
+              <Loader loading={loading}>
                 <TableContainer className={classes.tableCont} component={Paper}>
                   <Table className={classes.table} aria-label="simple table">
                     <TableHead>
@@ -107,7 +108,7 @@ const ProductsTable = () => {
                     </TableBody>
                   </Table>
                 </TableContainer>
-                }
+              </Loader>
             </Box>
         </Box>
     );

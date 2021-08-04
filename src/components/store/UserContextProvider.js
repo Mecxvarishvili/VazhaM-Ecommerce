@@ -5,14 +5,20 @@ export const AuthContext = React.createContext({})
 
 const UserContextProvider = ({children}) => {
   
-  const [auth, setAuth ]= useState()
-
-  useEffect(() => {
-    setAuth(localStorage.getItem("Auth"))
-  }, [localStorage.getItem("Auth")])
+  const [auth, setAuth ]= useState(localStorage.getItem("Token"))
+  const [token, setToken] = useState()
+  const [data, setData] = useState()
+  const [userData, setUserData] = useState()
 
     return (
-      <AuthContext.Provider value={{isLoggedIn: auth, setAuth }}>
+      <AuthContext.Provider value={{isLoggedIn: auth,
+                                     setAuth,
+                                    productData: data,
+                                    setData,
+                                    token: token,
+                                    userData: userData,
+                                    setUserData,
+                                    setToken }}>
         {children}
       </AuthContext.Provider>
     );

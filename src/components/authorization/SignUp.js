@@ -217,7 +217,7 @@ const SignUp = () => {
 
     const history = useHistory()
 
-    const data = useContext(AuthContext)
+    const context = useContext(AuthContext)
 
     const formik = useFormik({
       initialValues: {
@@ -239,9 +239,10 @@ const SignUp = () => {
       }),
       onSubmit: values => {
         Api.getSignUp(values)
+        Api.getSignIn(values, context.setToken)
+        Api.getToken(context.token, context.setUserData)
         history.replace(Home)
-        localStorage.setItem("Auth", true);
-        data.setAuth(true)
+        context.setAuth(true)
       },
     });
     return (

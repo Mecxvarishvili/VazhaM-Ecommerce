@@ -160,7 +160,7 @@ const useStyles = makeStyles((theme) => ({
 const Header = () => {
     const classes = useStyles();
 
-    const data = useContext(AuthContext)
+    const context = useContext(AuthContext)
 
     useEffect(() =>{
       console.log(location.pathname)
@@ -247,8 +247,9 @@ const Header = () => {
   );
 
   const SignOut = () => {
-    data.setAuth(false)
-    localStorage.removeItem("Auth");
+    context.setAuth(false)
+    context.setToken(false)
+    localStorage.removeItem("Token");
   }
 
   const mobileMenuId = 'primary-search-account-menu-mobile';
@@ -277,7 +278,7 @@ const Header = () => {
         </Select>
         <Link className={`${classes.signIn} ${classes[colRef.current.after]}`} to={Home}>Shop</Link>
         <Link className={`${classes.signIn} ${classes[colRef.current.after]}`} to={Admin}>Admin</Link>
-        {data.isLoggedIn ? <Button onClick={SignOut} className={`${classes.signUp} ${classes[colRef.current.signUp]}`}>Sign Out</Button> :
+        {context.isLoggedIn ? <Button onClick={SignOut} className={`${classes.signUp} ${classes[colRef.current.signUp]}`}>Sign Out</Button> :
         <>
           <Link to={SIGNIN}className={`${classes.signIn} ${classes[colRef.current.after]}`}>Sign in</Link>
           <Link to={SIGNUP} className={`${classes.signUp} ${classes[colRef.current.signUp]}`}>SIGN UP</Link> 
@@ -305,7 +306,7 @@ const Header = () => {
                 </Select>
                 <Link className={`${classes.signIn} ${classes[colRef.current.after]}`} to={Home}>Shop</Link>
                 <Link className={`${classes.signIn} ${classes[colRef.current.after]}`} to={Admin}>Admin</Link>
-                {data.isLoggedIn ? <Button onClick={SignOut} className={`${classes.signUp} ${classes[colRef.current.signUp]}`}>Sign Out</Button> :
+                {context.isLoggedIn ? <Button onClick={SignOut} className={`${classes.signUp} ${classes[colRef.current.signUp]}`}>Sign Out</Button> :
                 <>
                   <Link to={SIGNIN}className={`${classes.signIn} ${classes[colRef.current.after]}`}>Sign in</Link>
                   <Link to={SIGNUP} className={`${classes.signUp} ${classes[colRef.current.signUp]}`}>SIGN UP</Link> 
