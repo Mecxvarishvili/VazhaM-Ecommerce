@@ -4,7 +4,7 @@ import { useState } from 'react';
 import CardItem from './CardItem';
 import { useEffect } from 'react';
 import Api from '../../../serializer/api';
-import Loader from '../../../Loader';
+import Loader from '../../../components/Loader';
 import { useContext } from 'react';
 import { AuthContext } from '../../../store/UserContextProvider';
 

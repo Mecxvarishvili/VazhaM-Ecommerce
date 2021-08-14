@@ -10,7 +10,7 @@ import { useParams } from 'react-router-dom';
 import Api from '../../serializer/api';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import SimpleTabs from './SimpleTabs';
-import Loader from '../../Loader';
+import Loader from '../../components/Loader';
 
 const useStyles = makeStyles((theme) => ({
     main: {

@@ -11,9 +11,12 @@ import Paper from '@material-ui/core/Paper';
 import { useEffect } from 'react';
 import Api from '../serializer/api';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Loader from '../Loader';
+import Loader from '../components/Loader';
 
 const useStyles = makeStyles((theme) => ({
+    mainCont: {
+        marginBottom: "30px",
+    },
     table: {
       minWidth: 650,
     },
@@ -72,7 +75,7 @@ const ProductsTable = () => {
       }, [])
 
     return (
-        <Box>
+        <Box className={classes.mainCont}>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"

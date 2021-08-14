@@ -1,17 +1,26 @@
 import { Box } from '@material-ui/core';
 import React from 'react';
-import Header from './components/layouts/header/Header';
-import Main from './components/layouts/main/Main';
-import Footer from './components/layouts/footer/Footer';
-import ProductPage from './components/pages/productpage/ProductPage';
+import Header from './layouts/header/Header';
+import Main from './layouts/main/Main';
+import Footer from './layouts/footer/Footer';
+import ProductPage from './pages/productpage/ProductPage';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Product, Admin, Home, SIGNIN, SIGNUP } from './components/serializer/routes';
-import AdminContent from './components/admin/AdminContent';
-import SignIn from './components/authorization/SignIn'
-import SignUp from './components/authorization/SignUp'
-import PrivateRoute from './components/authorization/PrivateRoute';
+import { Product, Admin, Home, SIGNIN, SIGNUP } from './serializer/routes';
+import AdminContent from './admin/AdminContent';
+import SignIn from './authorization/SignIn'
+import SignUp from './authorization/SignUp'
+import PrivateRoute from './authorization/PrivateRoute';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { setToken } from './store/user/userActionCreator';
 
 const App = () => {
+  let dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(setToken('asdfasdfasdf'))
+  }, [])
+
   return (
     <Box>
       <Router>
