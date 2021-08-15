@@ -1,15 +1,18 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { AuthContext } from '../store/UserContextProvider';
 import { SIGNIN } from '../serializer/routes'
+import { getLoggedIn} from '../store/user/userSelector';
+import { useSelector } from 'react-redux';
 
 const PrivateRoute = ({component: Component, ...rest}) => {
-    const data = useContext(AuthContext)
+
+    const token = useSelector(getLoggedIn)
+    
     return (
         <Route
           {...rest}
           render={({ location }) =>
-            data.isLoggedIn ? (
+            token ? (
               <Component />
             ) : (
               <Redirect to={{pathname: SIGNIN}}/>

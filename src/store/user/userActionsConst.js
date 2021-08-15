@@ -1,0 +1,8 @@
+export const SET_USER = 'SET_USER';
+export const SET_TOKEN = 'SET_TOKEN';
+export const GET_LOGGEDIN = 'GET_LOGGEDIN'
+export const GET_LOADING = 'GET_LOADING'
+
+/* GET_USER_REQUEST
+GET_USER_SUCSSES
+GET_USER_FAIL    */

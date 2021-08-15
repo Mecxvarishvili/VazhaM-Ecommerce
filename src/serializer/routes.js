@@ -6,3 +6,4 @@ export const Tab2 = '/information';
 export const Tab3 = '/review';
 export const SIGNIN = '/signin';
 export const SIGNUP = '/signup';
+export const PROFILE = '/profile'

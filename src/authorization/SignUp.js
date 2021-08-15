@@ -10,9 +10,10 @@ import { Home, SIGNIN } from "../serializer/routes";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF, faTwitter, faLinkedinIn, faGithub } from '@fortawesome/free-brands-svg-icons';
 import Api from '../serializer/api'; 
-import { useContext } from 'react';
-import { AuthContext } from '../store/UserContextProvider';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { getToken } from '../store/user/userSelector';
+import { setLoggedIn, setToken, setUser } from '../store/user/userActionCreator';
+import { useState } from 'react';
 
 const BlueCheckbox = withStyles({
     root: {
@@ -217,7 +218,11 @@ const SignUp = () => {
 
     const history = useHistory()
 
-    const context = useContext(AuthContext)
+    const dispatch = useDispatch()
+
+    const token = useSelector(getToken)
+
+    const [ err, setErr ] = useState({email: false, password: false})
 
     const formik = useFormik({
       initialValues: {
@@ -233,16 +238,27 @@ const SignUp = () => {
         password: Yup.string()
           .min(8, 'Must be 8 characters or more')
           .required('Enter Password'),
-        phone: Yup.string()
+        repassword: Yup.string()
           .max(15, 'Must be 15 characters or less')
           .required('Enter phone number')
       }),
       onSubmit: values => {
         Api.getSignUp(values)
-        Api.getSignIn(values, context.setToken)
-        Api.getToken(context.token, context.setUserData)
-        history.replace(Home)
-        context.setAuth(true)
+        .then((res) => {
+            if (res.ok) {
+                return res.json()
+            } else {
+              return res.json()
+                .then(res => Promise.reject(setErr({email: res.errors.email, password:  res.errors.password})))
+            }
+        })
+        .then(data => { 
+              dispatch(setUser(data.user))
+              dispatch(setToken(data.token))
+              dispatch(setLoggedIn(true))
+              localStorage.setItem("Token", data.token)
+              history.replace(Home)
+        })
       },
     });
     return (
@@ -267,12 +283,14 @@ const SignUp = () => {
 
                             <TextField className={classes.forInput} size="small" id="outlined-basic" label="Your Email" variant="outlined"  id="email" type="text" {...formik.getFieldProps('email')} />
                             {formik.touched.email && formik.errors.email ? (<div className={classes.err} >{formik.errors.email}</div>) : null}
+                            {err.email ? <Box className={classes.err} >The email has already been taken</Box> : <></>}
 
                             <TextField className={classes.forInput} size="small" id="outlined-basic" label="Your Password" variant="outlined"  id="password" type="password" {...formik.getFieldProps('password')} />
                             {formik.touched.password && formik.errors.password ? (<div className={classes.err} >{formik.errors.password}</div>) : null}
 
-                            <TextField className={classes.forInput} size="small" id="outlined-basic" label="Phone number" variant="outlined"  id="phone" type="text" {...formik.getFieldProps('phone')} />
-                            {formik.touched.phone && formik.errors.phone ? (<div className={classes.err} >{formik.errors.phone}</div>) : null}
+                            <TextField className={classes.forInput} size="small" id="outlined-basic" label="Phone number" variant="outlined"  id="phone" type="password" {...formik.getFieldProps('repassword')} />
+                            {formik.touched.repassword && formik.errors.repassword ? (<div className={classes.err} >{formik.errors.repassword}</div>) : null}
+                            {err.password ? <Box className={classes.err} >The password confirmation does not match</Box> : <></>}
 
                             <Box className={classes.bottom}>
                                 <FormControlLabel className={classes.remember} control={<BlueCheckbox name="subscribe" />} label="SUBSCRIBE TO OUR NEWSLETTER" />

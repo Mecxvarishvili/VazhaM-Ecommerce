@@ -64,6 +64,6 @@ export function serializeSignUp(values) {
         name: values.firstName,
         email: values.email,
         password: values.password,
-        password_confirmation: values.password
+        password_confirmation: values.repassword
     }
 }

@@ -10,8 +10,10 @@ import { SIGNUP, Admin, Home } from "../serializer/routes"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebookF, faTwitter, faLinkedinIn, faGithub } from '@fortawesome/free-brands-svg-icons'
 import Api from '../serializer/api' 
-import { AuthContext } from '../store/UserContextProvider'
-import { useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setLoggedIn, setToken, setUser } from '../store/user/userActionCreator';
+import { getToken } from '../store/user/userSelector';
+import { useState } from 'react';
 
 
 const BlueCheckbox = withStyles({
@@ -185,10 +187,13 @@ const useStyles = makeStyles(() => ({
 
 const SignIn = () => {
 
-    const context = useContext(AuthContext)
     const history = useHistory()
 
     const classes = useStyles()
+
+    const dispatch = useDispatch()
+
+    const [ err, setErr ] = useState(false)
 
 
     const formik = useFormik({
@@ -203,11 +208,21 @@ const SignIn = () => {
           .required('Enter Password'),
       }),
       onSubmit: values => {
-        Api.getSignIn(values, context.setToken)
-        Api.getToken(context.token, context.setUserData)
-        localStorage.setItem("Token", context.token.token.access_token)
-        history.replace(Home)
-        context.setAuth(true)
+        Api.getSignIn(values)
+        .then((res) => {
+            if (res.ok) {
+                return res.json()
+            } else {
+                return Promise.reject(setErr(true))
+            }
+        })
+        .then(data => {
+            dispatch(setUser(data.user))
+            dispatch(setToken(data.token))
+            dispatch(setLoggedIn(true))
+            localStorage.setItem("Token", data.token.access_token)
+            history.replace(Home)
+        })
       },
     });
     return (
@@ -224,7 +239,7 @@ const SignIn = () => {
 
                             <TextField className={classes.forInput} size="small" id="outlined-basic" label="Your Password" variant="outlined"  id="password" type="password" {...formik.getFieldProps('password')} />
                             {formik.touched.password && formik.errors.password ? (<div className={classes.err} >{formik.errors.password}</div>) : null}
-                            {context.token ? <Box className={classes.err}>Email or password is not correct</Box> : <></> }
+                            {err ? <Box className={classes.err}>Email or password is not correct</Box> : <></> }
                             <Box className={classes.bottom}>
                                 <FormControlLabel className={classes.remember} control={<BlueCheckbox name="rememberMe" />} label="REMEMBER ME" />
                                 <Link className={classes.link}>Forgot password?</Link>

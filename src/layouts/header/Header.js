@@ -3,14 +3,16 @@ import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Box, Toolbar, Typography, Button, Select, FormControl} from '@material-ui/core';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { Link, useLocation } from 'react-router-dom';
-import {Admin, Home, SIGNIN, SIGNUP } from '../../serializer/routes';
+import {Admin, Home, PROFILE, SIGNIN, SIGNUP } from '../../serializer/routes';
 import { faBars } from '@fortawesome/free-solid-svg-icons' 
+import { faMdb } from '@fortawesome/free-brands-svg-icons' 
 import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { AuthContext } from '../../store/UserContextProvider';
-import { useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setLoggedIn, setToken, setUser } from '../../store/user/userActionCreator';
+import { getLoggedIn } from '../../store/user/userSelector';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -29,9 +31,8 @@ const useStyles = makeStyles((theme) => ({
         color: "blue",
     },
     title: {
-      flexGrow: 1,
       fontWeight: 900,
-      fontSize: "22px",
+      fontSize: "43px",
       letterSpacing: '3px',
       color: 'white',
       textDecoration: "none",
@@ -58,6 +59,8 @@ const useStyles = makeStyles((theme) => ({
     },
     toolBar: {
       color: "blue",
+      display: "flex",
+      justifyContent: "space-between",
     },
     before: {
       color: "white",
@@ -160,7 +163,9 @@ const useStyles = makeStyles((theme) => ({
 const Header = () => {
     const classes = useStyles();
 
-    const context = useContext(AuthContext)
+    const isLoggedIn = useSelector(getLoggedIn)
+
+    const dispatch = useDispatch()
 
     useEffect(() =>{
       console.log(location.pathname)
@@ -204,12 +209,6 @@ const Header = () => {
         }
         console.log(location)
     }, [])
-
-    function forHistory() {
-      console.log(location.pathname)
-    }
-
-    
     
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -247,8 +246,9 @@ const Header = () => {
   );
 
   const SignOut = () => {
-    context.setAuth(false)
-    context.setToken(false)
+    dispatch(setLoggedIn(false))
+    dispatch(setToken({}))
+    dispatch(setUser({}))
     localStorage.removeItem("Token");
   }
 
@@ -278,7 +278,7 @@ const Header = () => {
         </Select>
         <Link className={`${classes.signIn} ${classes[colRef.current.after]}`} to={Home}>Shop</Link>
         <Link className={`${classes.signIn} ${classes[colRef.current.after]}`} to={Admin}>Admin</Link>
-        {context.isLoggedIn ? <Button onClick={SignOut} className={`${classes.signUp} ${classes[colRef.current.signUp]}`}>Sign Out</Button> :
+        {isLoggedIn ? <Button onClick={SignOut} className={`${classes.signUp} ${classes[colRef.current.signUp]}`}>Sign Out</Button> :
         <>
           <Link to={SIGNIN}className={`${classes.signIn} ${classes[colRef.current.after]}`}>Sign in</Link>
           <Link to={SIGNUP} className={`${classes.signUp} ${classes[colRef.current.signUp]}`}>SIGN UP</Link> 
@@ -290,7 +290,7 @@ const Header = () => {
     return (
         <AppBar className={classes[navRef.current]}>
             <Toolbar className={classes.toolBar}>
-              <Link className={`${classes.title} ${classes[colRef.current.logo]}`} to={Home}>MDB</Link>
+              <Link className={`${classes.title} ${classes[colRef.current.logo]}`} to={Home}><FontAwesomeIcon icon={faMdb} /></Link>
               <Box className={classes.sectionDesktop}>
                 <Button>
                   <Badge badgeContent={5} color="secondary"></Badge>
@@ -306,7 +306,15 @@ const Header = () => {
                 </Select>
                 <Link className={`${classes.signIn} ${classes[colRef.current.after]}`} to={Home}>Shop</Link>
                 <Link className={`${classes.signIn} ${classes[colRef.current.after]}`} to={Admin}>Admin</Link>
-                {context.isLoggedIn ? <Button onClick={SignOut} className={`${classes.signUp} ${classes[colRef.current.signUp]}`}>Sign Out</Button> :
+                { isLoggedIn ? 
+                  <>
+                    <Link to={PROFILE} className={`${classes.signIn} ${classes[colRef.current.after]}`}>
+                      <Box></Box>
+                      <Box>Profile</Box>
+                    </Link>
+                    <Button onClick={SignOut} className={`${classes.signUp} ${classes[colRef.current.signUp]}`}>Sign Out</Button>
+                  </>
+                   :
                 <>
                   <Link to={SIGNIN}className={`${classes.signIn} ${classes[colRef.current.after]}`}>Sign in</Link>
                   <Link to={SIGNUP} className={`${classes.signUp} ${classes[colRef.current.signUp]}`}>SIGN UP</Link> 

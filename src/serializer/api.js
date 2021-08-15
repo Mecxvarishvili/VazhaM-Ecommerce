@@ -1,5 +1,3 @@
-import { useContext } from "react";
-import { AuthContext } from "../store/UserContextProvider";
 import { serializeProductItem, serializeProducts, serializeAddProduct, serializeProductLimit, serializeSignIn, serializeSignUp } from "./serialize";
 
 
@@ -29,18 +27,16 @@ const Api = {
             .then(res=>res.json())
     },
 
-    getSignIn: (values, setToken) => {
+    getSignIn: (values) => {
         return fetch('http://159.65.126.180/api/auth/login', {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
-              Accept: "application/json"
+              Accept: "application/json",
+              'Authorization': `Bearer ${localStorage.getItem('token')}`
             },
             body:JSON.stringify(serializeSignIn(values))
         })
-            .then(res => res.json())
-            .then(json => setToken(json))
-            
     },
 
     getSignUp: (values) => {
