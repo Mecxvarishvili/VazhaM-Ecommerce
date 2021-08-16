@@ -351,8 +351,8 @@ const Header = () => {
                 <FontAwesomeIcon className={`${classes.icon} ${classes[colRef.current.aftIcon]}`} icon={faBars} onClick={handleMobileMenuOpen}/>
               </Box>
             </Toolbar>
-            {/* {renderMobileMenu}
-            {renderMenu} */}
+            {renderMobileMenu}
+            {renderMenu}
         </AppBar> 
     );
 }
