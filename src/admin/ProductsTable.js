@@ -100,7 +100,7 @@ const ProductsTable = () => {
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                    {!!data.data.length && data.data.map(el => (<TableRow key={el.name}>
+                    {!!data.data.length && data.data.map(el => (<TableRow key={el.id}>
                       <TableCell component="th" scope="row">
                         {el.id}
                       </TableCell>

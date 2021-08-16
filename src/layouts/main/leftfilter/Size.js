@@ -31,10 +31,10 @@ const Size = () => {
                 <FormControlLabel className={classes.myComponent} control={<Checkbox name="34" />} label="34" />
             </Box>
             <Box>
-                <FormControlLabel className={classes.myComponent} control={<Checkbox name=" 36"/>} label="36" />
+                <FormControlLabel className={classes.myComponent} control={<Checkbox name="36"/>} label="36" />
             </Box>
             <Box>
-                <FormControlLabel className={classes.myComponent} control={<Checkbox name=" 38"/>} label="38" />
+                <FormControlLabel className={classes.myComponent} control={<Checkbox name="38"/>} label="38" />
             </Box>
             <Box>
                 <FormControlLabel className={classes.myComponent} control={<Checkbox name="40"/>} label="40" />

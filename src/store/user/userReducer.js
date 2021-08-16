@@ -3,7 +3,7 @@ import { SET_USER, SET_TOKEN, GET_LOGGEDIN, GET_LOADING } from "./userActionsCon
 const initialState = {
     user: {},
     token: {}, 
-    isLoggedIn:  localStorage.getItem("Token"),
+    isLoggedIn: localStorage.getItem("Token"),
     isLoading: false,
 }
 

@@ -13,7 +13,7 @@ const useStyes = makeStyles((theme) => ({
     },
 }))
 
-const Loader = (props, loading) => {
+const Loader = (props) => {
     const classes = useStyes()
     return (
         props.loading ? <CircularProgress className={classes.spinner} /> : props.children

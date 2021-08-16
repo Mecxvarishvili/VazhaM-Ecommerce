@@ -33,19 +33,19 @@ const CustomerReview = () => {
         <Box>
             <Box component='h2' style={{ fontSize: "17px", fontWeight: "500", marginTop: "35px",}}>Avg. Customer Review</Box>
             <Button padding="none" className={classes.button} style={{ backgroundColor: 'transparent' }}>
-                <Rating name="read-only" className={classes.rating} value="4" readOnly emptyIcon={<StarBorderIcon fontSize="inherit" />} />
+                <Rating name="read-only" className={classes.rating} value={4} readOnly emptyIcon={<StarBorderIcon fontSize="inherit" />} />
                 <Typography className={classes.up} component="legend"> & UP</Typography>
             </Button>
             <Button padding="none"  className={classes.button}>
-                <Rating className={classes.rating} name="read-only" value="3" readOnly emptyIcon={<StarBorderIcon fontSize="inherit" />} />
+                <Rating className={classes.rating} name="read-only" value={3} readOnly emptyIcon={<StarBorderIcon fontSize="inherit" />} />
                 <Typography className={classes.up} component="legend"> & UP</Typography>
             </Button>
             <Button padding="none"  className={classes.button}>
-                <Rating className={classes.rating} name="read-only" value="2" readOnly emptyIcon={<StarBorderIcon fontSize="inherit" />} />
+                <Rating className={classes.rating} name="read-only" value={2} readOnly emptyIcon={<StarBorderIcon fontSize="inherit" />} />
                 <Typography className={classes.up} component="legend"> & UP</Typography>
             </Button>
             <Button padding="none"  className={classes.button}>
-                <Rating className={classes.rating} name="read-only" value="1" readOnly emptyIcon={<StarBorderIcon fontSize="inherit" />} />
+                <Rating className={classes.rating} name="read-only" value={1} readOnly emptyIcon={<StarBorderIcon fontSize="inherit" />} />
                 <Typography className={classes.up} component="legend"> & UP</Typography>
             </Button>
         </Box>

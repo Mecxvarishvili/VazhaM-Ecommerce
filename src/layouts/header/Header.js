@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { AppBar, Box, Toolbar, Typography, Button, Select, FormControl} from '@material-ui/core';
+import { AppBar, Box, Toolbar, Typography, Button, Select, FormControl, CardMedia} from '@material-ui/core';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import {Admin, Home, PROFILE, SIGNIN, SIGNUP } from '../../serializer/routes';
 import { faBars } from '@fortawesome/free-solid-svg-icons' 
 import { faMdb } from '@fortawesome/free-brands-svg-icons' 
@@ -12,7 +12,7 @@ import Menu from '@material-ui/core/Menu';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
 import { setLoggedIn, setToken, setUser } from '../../store/user/userActionCreator';
-import { getLoggedIn } from '../../store/user/userSelector';
+import { getLoggedIn, getUserData } from '../../store/user/userSelector';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -36,6 +36,19 @@ const useStyles = makeStyles((theme) => ({
       letterSpacing: '3px',
       color: 'white',
       textDecoration: "none",
+    },
+    img: {
+      width: "25px",
+      height: "24px",
+      marginRight: "5px",
+    },
+    profile: {
+      display: "flex",
+      textDecoration: "none",
+      fontWeight: '500',
+      textTransform: 'capitalize',
+      fontSize: '15px',
+      color: 'white',
     },
     signIn: {
       textDecoration: "none",
@@ -75,6 +88,7 @@ const useStyles = makeStyles((theme) => ({
     aftSignUp: {
       color: "#1266f1",
       border: '2px solid #1266f1',
+      margin: "5px",
     },
     icon: {
       color: 'white',
@@ -167,6 +181,10 @@ const Header = () => {
 
     const dispatch = useDispatch()
 
+    const history = useHistory()
+
+    const userData = useSelector(getUserData)
+
     useEffect(() =>{
       console.log(location.pathname)
     }, [])
@@ -207,7 +225,6 @@ const Header = () => {
         return () => {
             document.removeEventListener('scroll', handleScroll)
         }
-        console.log(location)
     }, [])
     
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -249,7 +266,8 @@ const Header = () => {
     dispatch(setLoggedIn(false))
     dispatch(setToken({}))
     dispatch(setUser({}))
-    localStorage.removeItem("Token");
+    localStorage.removeItem("Token")
+    history.replace(Home)
   }
 
   const mobileMenuId = 'primary-search-account-menu-mobile';
@@ -268,9 +286,9 @@ const Header = () => {
           <Badge badgeContent={5} color="secondary"></Badge>
           <ShoppingCartIcon className={`${classes.shoppingCart} ${classes[colRef.current.after]}`} />
         </Button>
-        <Select className={`${classes.select} ${classes[colRef.current.aftImg]}`} value="0" src>
+        <Select className={`${classes.select} ${classes[colRef.current.aftImg]}`} value="0" >
           <option className={classes.optionSee} value="0">
-            <img className={`${classes.optionImg} ${classes[colRef.current.aftImg]}`} src="https://www.kindpng.com/picc/m/167-1672831_gb-united-kingdom-flag-icon-british-flag-hd.png"></img>
+            <CardMedia className={`${classes.optionImg} ${classes[colRef.current.aftImg]}`} image={'https://www.kindpng.com/picc/m/167-1672831_gb-united-kingdom-flag-icon-british-flag-hd.png'}/>
           </option>
           <option className={classes.option} value="Action">Action</option>
           <option className={classes.option} value="aa">Another action</option>
@@ -278,7 +296,15 @@ const Header = () => {
         </Select>
         <Link className={`${classes.signIn} ${classes[colRef.current.after]}`} to={Home}>Shop</Link>
         <Link className={`${classes.signIn} ${classes[colRef.current.after]}`} to={Admin}>Admin</Link>
-        {isLoggedIn ? <Button onClick={SignOut} className={`${classes.signUp} ${classes[colRef.current.signUp]}`}>Sign Out</Button> :
+        {isLoggedIn ? 
+          <>
+            <Link to={PROFILE} className={`${classes.profile} ${classes[colRef.current.after]}`}>
+              {userData.avatar ? <CardMedia className={classes.img} image={userData.avatar}/> : <></> } 
+              <Box>{userData.name}</Box>
+            </Link>
+            <Button onClick={SignOut} className={`${classes.signUp} ${classes[colRef.current.signUp]}`}>Sign Out</Button>
+          </>
+          :
         <>
           <Link to={SIGNIN}className={`${classes.signIn} ${classes[colRef.current.after]}`}>Sign in</Link>
           <Link to={SIGNUP} className={`${classes.signUp} ${classes[colRef.current.signUp]}`}>SIGN UP</Link> 
@@ -296,9 +322,9 @@ const Header = () => {
                   <Badge badgeContent={5} color="secondary"></Badge>
                   <ShoppingCartIcon className={`${classes.shoppingCart} ${classes[colRef.current.after]}`} />
                 </Button>
-                <Select className={`${classes.select} ${classes[colRef.current.aftImg]}`} value="0" src>
+                <Select className={`${classes.select} ${classes[colRef.current.aftImg]}`} value="0" >
                   <option className={classes.optionSee} value="0">
-                    <img className={`${classes.optionImg} ${classes[colRef.current.aftImg]}`} src="https://www.kindpng.com/picc/m/167-1672831_gb-united-kingdom-flag-icon-british-flag-hd.png"></img>
+                    <CardMedia className={`${classes.optionImg} ${classes[colRef.current.aftImg]}`} image={'https://www.kindpng.com/picc/m/167-1672831_gb-united-kingdom-flag-icon-british-flag-hd.png'}/>
                   </option>
                   <option className={classes.option} value="Action">Action</option>
                   <option className={classes.option} value="aa">Another action</option>
@@ -308,25 +334,25 @@ const Header = () => {
                 <Link className={`${classes.signIn} ${classes[colRef.current.after]}`} to={Admin}>Admin</Link>
                 { isLoggedIn ? 
                   <>
-                    <Link to={PROFILE} className={`${classes.signIn} ${classes[colRef.current.after]}`}>
-                      <Box></Box>
-                      <Box>Profile</Box>
+                    <Link to={PROFILE} className={`${classes.profile} ${classes[colRef.current.after]}`}>
+                      {userData.avatar ? <CardMedia className={classes.img} image={userData.avatar}/> : <></> } 
+                      <Box>{userData.name}</Box>
                     </Link>
                     <Button onClick={SignOut} className={`${classes.signUp} ${classes[colRef.current.signUp]}`}>Sign Out</Button>
                   </>
                    :
-                <>
-                  <Link to={SIGNIN}className={`${classes.signIn} ${classes[colRef.current.after]}`}>Sign in</Link>
-                  <Link to={SIGNUP} className={`${classes.signUp} ${classes[colRef.current.signUp]}`}>SIGN UP</Link> 
-                </>}
+                  <>
+                    <Link to={SIGNIN}className={`${classes.signIn} ${classes[colRef.current.after]}`}>Sign in</Link>
+                    <Link to={SIGNUP} className={`${classes.signUp} ${classes[colRef.current.signUp]}`}>SIGN UP</Link> 
+                  </>}
               </Box>
               <Box className={classes.sectionMobile}>
                 
                 <FontAwesomeIcon className={`${classes.icon} ${classes[colRef.current.aftIcon]}`} icon={faBars} onClick={handleMobileMenuOpen}/>
               </Box>
             </Toolbar>
-            {renderMobileMenu}
-            {renderMenu}
+            {/* {renderMobileMenu}
+            {renderMenu} */}
         </AppBar> 
     );
 }

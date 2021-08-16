@@ -242,7 +242,7 @@ const SignIn = () => {
                             {err ? <Box className={classes.err}>Email or password is not correct</Box> : <></> }
                             <Box className={classes.bottom}>
                                 <FormControlLabel className={classes.remember} control={<BlueCheckbox name="rememberMe" />} label="REMEMBER ME" />
-                                <Link className={classes.link}>Forgot password?</Link>
+                                <Box className={classes.link}>Forgot password?</Box>
                             </Box>
                         </Box>
                         <Box className={classes.footerCont}>

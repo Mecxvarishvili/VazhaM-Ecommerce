@@ -33,7 +33,7 @@ const Api = {
             headers: {
               "Content-Type": "application/json",
               Accept: "application/json",
-              'Authorization': `Bearer ${localStorage.getItem('token')}`
+              Authorization: `Bearer ${localStorage.getItem('token')}`
             },
             body:JSON.stringify(serializeSignIn(values))
         })
@@ -50,15 +50,20 @@ const Api = {
         })
     },
 
-    getToken: (token, setUserData) => {
+    getToken: () => {
         return fetch ('http://159.65.126.180/api/auth/me', {
             method: "POST",
             headers: {
-              Authorization: `Bearer ${token.token.access_token}`
+              Authorization: `Bearer ${localStorage.getItem("Token")}`
             },
         })
             .then(res => res.json())
-            .then(json => setUserData(json))
+    },
+
+    updateUser: () => {
+        return fetch ('http://159.65.126.180/api/users/1/update', {
+            method: "POST",
+        })
     }
 }
 

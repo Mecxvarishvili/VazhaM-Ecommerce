@@ -10,35 +10,34 @@ import AdminContent from './admin/AdminContent';
 import SignIn from './authorization/SignIn'
 import SignUp from './authorization/SignUp'
 import PrivateRoute from './authorization/PrivateRoute';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import { setToken } from './store/user/userActionCreator';
-import { selectUser } from './store/user/userSelector';
-import { logInUser } from './store/user/userAction';
+import { setUser } from './store/user/userActionCreator';
 import ProfilePage from './pages/profilepage/ProfilePage';
+import Api from './serializer/api';
 
 const App = () => {
   let dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(logInUser)
+    if (localStorage.getItem("Token")) {
+      Api.getToken()
+        .then(data => dispatch(setUser(data)))
+    }
   }, [])
-
-  const user = useSelector(selectUser)
-  /* console.log(user) */
 
   return (
     <Box>
       <Router>
         <Header />
-          <Switch>
-            <Route path={Product} component={ProductPage} />
-            <Route path={SIGNIN} component={SignIn} />
-            <Route path={SIGNUP} component={SignUp} />
-            <Route path={Home} exact component={Main} />
-            <Route path={PROFILE} exact component={ProfilePage} />
-            <PrivateRoute path={Admin} component={AdminContent} />
-          </Switch>
+        <Switch>
+          <Route path={Home} exact component={Main} />
+          <Route path={Product} component={ProductPage} />
+          <Route path={SIGNIN} component={SignIn} />
+          <Route path={SIGNUP} component={SignUp} />
+          <PrivateRoute path={PROFILE} component={ProfilePage} />
+          <PrivateRoute path={Admin} component={AdminContent} />
+        </Switch>
         <Footer />
       </Router>
     </Box>

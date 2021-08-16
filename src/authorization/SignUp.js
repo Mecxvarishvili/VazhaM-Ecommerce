@@ -318,7 +318,7 @@ const SignUp = () => {
                                 </Box>
                             </Box>
                             <Box className={classes.line} />
-                            <Box className={classes.terms}>By clicking Sign up you agree to our <Link className={classes.link}>terms of service</Link></Box>
+                            <Box className={classes.terms}>By clicking Sign up you agree to our <Box className={classes.link}>terms of service</Box></Box>
                         </Box>
                     </form>
                 </Grid>

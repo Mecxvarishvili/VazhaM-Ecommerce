@@ -5,8 +5,6 @@ import CardItem from './CardItem';
 import { useEffect } from 'react';
 import Api from '../../../serializer/api';
 import Loader from '../../../components/Loader';
-import { useContext } from 'react';
-import { AuthContext } from '../../../store/UserContextProvider';
 
 const useStyles = makeStyles((theme) => ({
     cont: {
@@ -19,8 +17,6 @@ const Cards = (props) => {
     
     const [data, setData] = useState({page: '', data: '',})
     const [loading, setIsLoading] = useState(false)
-
-    const context = useContext(AuthContext)
 
     const products = () => {
         setIsLoading(true)
@@ -40,8 +36,8 @@ const Cards = (props) => {
         <Box component="section" className={classes.cont}>
             <Grid container spacing={3}>
                 <Loader loading={loading}>
-                {!!data.data.length && data.data.map(el => (
-                        <Grid item xs={12} sm={6} md={4}>
+                {!!data.data.length && data.data.map((el) => (
+                        <Grid key={el.id} item xs={12} sm={6} md={4}>
                             <CardItem data={el} />
                         </Grid>
                     ))}
@@ -52,10 +48,3 @@ const Cards = (props) => {
 };
 
 export default Cards;
-{/* <Loader isLoading={loading} >
-                    {!!data.length && data.map(el => (
-                        <Grid item xs={12} sm={4}>
-                            <CardItem data={el} />
-                        </Grid>
-                    ))}
-                </Loader> */}

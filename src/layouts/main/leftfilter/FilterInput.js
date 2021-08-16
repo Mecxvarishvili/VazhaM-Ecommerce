@@ -22,11 +22,11 @@ const FilterInput = () => {
 
     return (
         <Grid container>
-            <Grid  md='10'>
+            <Grid item md={10}>
                 <TextField id="outlined-size-small" variant="outlined" size="small" className={classes.myComponent}/>
             </Grid>
-            <Grid  md='1'>
-                <IconButton color="primary" aria-label="add to shopping cart" md="1">
+            <Grid item md={2}>
+                <IconButton color="primary" aria-label="add to shopping cart" >
                   <SearchIcon style={{ color: "#1266f1"}}/>
                 </IconButton>  
             </Grid>
