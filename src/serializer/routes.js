@@ -7,3 +7,4 @@ export const Tab3 = '/review';
 export const SIGNIN = '/signin';
 export const SIGNUP = '/signup';
 export const PROFILE = '/profile'
+export const CART = '/cart'

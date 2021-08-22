@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Box, Toolbar, Typography, Button, Select, FormControl, CardMedia} from '@material-ui/core';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { Link, useHistory, useLocation } from 'react-router-dom';
-import {Admin, Home, PROFILE, SIGNIN, SIGNUP } from '../../serializer/routes';
+import {Admin, CART, Home, PROFILE, SIGNIN, SIGNUP } from '../../serializer/routes';
 import { faBars } from '@fortawesome/free-solid-svg-icons' 
 import { faMdb } from '@fortawesome/free-brands-svg-icons' 
 import Badge from '@material-ui/core/Badge';
@@ -186,7 +186,7 @@ const Header = () => {
     const userData = useSelector(getUserData)
 
     useEffect(() =>{
-      console.log(location.pathname)
+      console.log("aa")
     }, [])
 
     const [navBackground, setNavBackground] = useState('appBarSolid')
@@ -318,10 +318,10 @@ const Header = () => {
             <Toolbar className={classes.toolBar}>
               <Link className={`${classes.title} ${classes[colRef.current.logo]}`} to={Home}><FontAwesomeIcon icon={faMdb} /></Link>
               <Box className={classes.sectionDesktop}>
-                <Button>
+                  <Link to={CART}className={`${classes.signIn} ${classes[colRef.current.after]}`}>
                   <Badge badgeContent={5} color="secondary"></Badge>
-                  <ShoppingCartIcon className={`${classes.shoppingCart} ${classes[colRef.current.after]}`} />
-                </Button>
+                    <ShoppingCartIcon className={`${classes.shoppingCart} ${classes[colRef.current.after]}`} />
+                  </Link>
                 <Select className={`${classes.select} ${classes[colRef.current.aftImg]}`} value="0" >
                   <option className={classes.optionSee} value="0">
                     <CardMedia className={`${classes.optionImg} ${classes[colRef.current.aftImg]}`} image={'https://www.kindpng.com/picc/m/167-1672831_gb-united-kingdom-flag-icon-british-flag-hd.png'}/>

@@ -1,4 +1,4 @@
-import { serializeProductItem, serializeProducts, serializeAddProduct, serializeProductLimit, serializeSignIn, serializeSignUp } from "./serialize";
+import { serializeProductItem, serializeProducts, serializeAddProduct, serializeProductLimit, serializeSignIn, serializeSignUp, serializeProfileUpdate } from "./serialize";
 
 
 
@@ -60,9 +60,15 @@ const Api = {
             .then(res => res.json())
     },
 
-    updateUser: () => {
+    updateUser: (values) => {
         return fetch ('http://159.65.126.180/api/users/1/update', {
             method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+              Authorization: `Bearer ${localStorage.getItem("Token")}`
+            },
+            body:JSON.stringify(serializeProfileUpdate(values))
         })
     }
 }

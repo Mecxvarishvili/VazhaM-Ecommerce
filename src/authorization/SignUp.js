@@ -288,7 +288,7 @@ const SignUp = () => {
                             <TextField className={classes.forInput} size="small" id="outlined-basic" label="Your Password" variant="outlined"  id="password" type="password" {...formik.getFieldProps('password')} />
                             {formik.touched.password && formik.errors.password ? (<div className={classes.err} >{formik.errors.password}</div>) : null}
 
-                            <TextField className={classes.forInput} size="small" id="outlined-basic" label="Phone number" variant="outlined"  id="phone" type="password" {...formik.getFieldProps('repassword')} />
+                            <TextField className={classes.forInput} size="small" id="outlined-basic" label="Re Enter Password" variant="outlined"  id="phone" type="password" {...formik.getFieldProps('repassword')} />
                             {formik.touched.repassword && formik.errors.repassword ? (<div className={classes.err} >{formik.errors.repassword}</div>) : null}
                             {err.password ? <Box className={classes.err} >The password confirmation does not match</Box> : <></>}
 

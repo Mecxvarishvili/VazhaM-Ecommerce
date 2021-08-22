@@ -67,3 +67,9 @@ export function serializeSignUp(values) {
         password_confirmation: values.repassword
     }
 }
+
+export function serializeProfileUpdate(values) {
+    return {
+        name: values.name,
+    }
+}
