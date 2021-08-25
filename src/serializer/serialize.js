@@ -3,11 +3,12 @@ export function serializeProducts(data){
         page: data.page,
         data: data.data.map(el => {
             return {
+                id: el.id,
                 title: el.title,
                 price: el.price,
                 img: el.image,
-                id: el.id,
-                describe: el.describtion
+                describe: el.description,
+                category: el.category,
             }
         })
 
@@ -16,10 +17,10 @@ export function serializeProducts(data){
 
 export function serializeProductItem(el){
     return {
+        id: el.id,
         title: el.title,
         price: el.price,
         img: el.image,
-        id: el.id,
         describe: el.description,
         category: el.category,
     }

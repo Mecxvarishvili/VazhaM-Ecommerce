@@ -5,7 +5,7 @@ import Main from './layouts/main/Main';
 import Footer from './layouts/footer/Footer';
 import ProductPage from './pages/productpage/ProductPage';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Product, Admin, Home, SIGNIN, SIGNUP, PROFILE } from './serializer/routes';
+import { Product, Admin, Home, SIGNIN, SIGNUP, PROFILE, CART } from './serializer/routes';
 import AdminContent from './admin/AdminContent';
 import SignIn from './authorization/SignIn'
 import SignUp from './authorization/SignUp'
@@ -15,6 +15,7 @@ import { useEffect } from 'react';
 import { setUser } from './store/user/userActionCreator';
 import ProfilePage from './pages/profilepage/ProfilePage';
 import Api from './serializer/api';
+import CartPage from './pages/cartpage/CartPage';
 
 const App = () => {
   let dispatch = useDispatch()
@@ -35,6 +36,7 @@ const App = () => {
           <Route path={Product} component={ProductPage} />
           <Route path={SIGNIN} component={SignIn} />
           <Route path={SIGNUP} component={SignUp} />
+          <Route path={CART} component={CartPage} />
           <PrivateRoute path={PROFILE} component={ProfilePage} />
           <PrivateRoute path={Admin} component={AdminContent} />
         </Switch>

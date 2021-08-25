@@ -1,16 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Box, Button } from '@material-ui/core'
+import { Grid, Box, Button, TextField } from '@material-ui/core'
 import Rating from '@material-ui/lab/Rating';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteCart, setCart } from '../../store/cart/cartActionCreator';
+import { getCartProduct } from '../../store/cart/cartSelector';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 
 const useStyles = makeStyles(() => ({
     table: {
@@ -34,6 +31,16 @@ const useStyles = makeStyles(() => ({
       fontSize: "10px",
       fontWeight: "700",
       boxShadow: "0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%)"
+    },
+    deleteButton: {
+      width: "150px",
+      height: "35px",
+      borderRadius: "4px",
+      backgroundColor: "#f2f2f2",
+      color: "#4f4f4f",
+      fontSize: "10px",
+      fontWeight: "700",
+      boxShadow: "0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%)",
     },
     icon: {
       fontSize: "15px",
@@ -109,6 +116,25 @@ const rows = [
 const AboutProduct = (props) => {
     const data = props.data
     const classes = useStyles()
+    const dispatch = useDispatch()
+    const gtCartData = useSelector(getCartProduct)
+
+    const [amount, setAmount] = useState(1)
+
+    const increaseValue = () => {
+      setAmount(amount + 1)
+    }
+
+    const decreaseValue = () => {
+      if(amount > 1){
+        setAmount(amount - 1)
+      }
+    }
+
+    const handSetValue = (e) => {
+      setAmount(parseInt(e.target.value))
+    }
+
 
     return (
         <Grid item md={6} xs={12}>
@@ -137,7 +163,13 @@ const AboutProduct = (props) => {
             </Box>
             <Box>
                 <Button className={classes.buyButton}>BUY NOW</Button>
-                <Button className={classes.addButton}><ShoppingCartIcon className={classes.icon} />ADD TO CART</Button>
+                <Button onClick={() => dispatch(setCart(data))} className={classes.addButton}><FontAwesomeIcon className={classes.icon} icon={faShoppingCart} />ADD TO CART</Button>
+                <Button onClick={() => dispatch(deleteCart(data))}  className={classes.deleteButton} ><FontAwesomeIcon className={classes.icon} icon={faTrash} /> Remove from cart</Button>
+            </Box>
+            <Box>
+                <Button onClick={decreaseValue}>-</Button>
+                <TextField type="phone" onChange={handSetValue} value={amount} />
+                <Button onClick={increaseValue} >+</Button>
             </Box>
         </Grid>
     );

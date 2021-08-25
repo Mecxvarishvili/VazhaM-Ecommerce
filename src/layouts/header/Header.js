@@ -13,6 +13,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
 import { setLoggedIn, setToken, setUser } from '../../store/user/userActionCreator';
 import { getLoggedIn, getUserData } from '../../store/user/userSelector';
+import { getCartProduct } from '../../store/cart/cartSelector';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -178,6 +179,7 @@ const Header = () => {
     const classes = useStyles();
 
     const isLoggedIn = useSelector(getLoggedIn)
+    const cartProduct = useSelector(getCartProduct)
 
     const dispatch = useDispatch()
 
@@ -319,7 +321,7 @@ const Header = () => {
               <Link className={`${classes.title} ${classes[colRef.current.logo]}`} to={Home}><FontAwesomeIcon icon={faMdb} /></Link>
               <Box className={classes.sectionDesktop}>
                   <Link to={CART}className={`${classes.signIn} ${classes[colRef.current.after]}`}>
-                  <Badge badgeContent={5} color="secondary"></Badge>
+                  <Badge badgeContent={cartProduct.length} color="secondary"></Badge>
                     <ShoppingCartIcon className={`${classes.shoppingCart} ${classes[colRef.current.after]}`} />
                   </Link>
                 <Select className={`${classes.select} ${classes[colRef.current.aftImg]}`} value="0" >

@@ -1,10 +1,12 @@
 import user from './user/userReducer';
+import cart from './cart/cartReducer';
 import products from './products/productsReducer';
 import { combineReducers } from 'redux';
 
 const allReducer = combineReducers({
     user,
-    products
+    products,
+    cart
 })
 const  rootReducer = (state, action) => {
     return allReducer(state, action)
