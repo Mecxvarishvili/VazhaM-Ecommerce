@@ -8,9 +8,10 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Api from '../../serializer/api';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import SimpleTabs from './SimpleTabs';
 import Loader from '../../components/Loader';
+import { useDispatch, useSelector } from 'react-redux';
+import { setIsLoading, setSingePage } from '../../store/products/productActionCreator';
+import { getIsLoading, getSinglePageData } from '../../store/products/productSelector';
 
 const useStyles = makeStyles((theme) => ({
     main: {
@@ -42,18 +43,17 @@ const useStyles = makeStyles((theme) => ({
 const ProductPage = () => {
 
     const classes = useStyles()
-    const [data, setData] = useState('')
-    const [loading, setIsLoading] = useState(false)
     const {id} = useParams()
+
+    const dispatch = useDispatch()
+    const data = useSelector(getSinglePageData)
     
     useEffect(() => {
-        setIsLoading(true)
+        dispatch(setIsLoading(true))
         Api.getProductItem(id)
-            .then(res => setData(res))
+            .then(res => dispatch(setSingePage(res)))
             .catch(err => {console.log(err)})
-            .finally(() => {
-                setIsLoading(false)
-            })
+            .finally(() => {dispatch(setIsLoading(false))})
     }, []);
 
     return (
@@ -61,7 +61,7 @@ const ProductPage = () => {
             <Box className={classes.outTitle}>
                 <Box className={classes.title}>Product page</Box>
             </Box>
-            <Loader loading={loading}>
+            <Loader>
                 <Box >
                     <Grid sm={9} xs={9} className={classes.container}>
                         <Box className={classes.inCont} component="section">

@@ -209,13 +209,6 @@ const SignIn = () => {
       }),
       onSubmit: values => {
         Api.getSignIn(values)
-        .then((res) => {
-            if (res.ok) {
-                return res.json()
-            } else {
-                return Promise.reject(setErr(true))
-            }
-        })
         .then(data => {
             dispatch(setUser(data.user))
             dispatch(setToken(data.token))

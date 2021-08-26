@@ -244,14 +244,6 @@ const SignUp = () => {
       }),
       onSubmit: values => {
         Api.getSignUp(values)
-        .then((res) => {
-            if (res.ok) {
-                return res.json()
-            } else {
-              return res.json()
-                .then(res => Promise.reject(setErr({email: res.errors.email, password:  res.errors.password})))
-            }
-        })
         .then(data => { 
               dispatch(setUser(data.user))
               dispatch(setToken(data.token))

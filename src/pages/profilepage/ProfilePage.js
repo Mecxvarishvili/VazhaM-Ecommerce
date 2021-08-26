@@ -1,11 +1,12 @@
 import { Box, Button, CardMedia, Grid, makeStyles, TextField } from '@material-ui/core';
 import React from 'react';
 import { getUserData } from '../../store/user/userSelector';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Loader from '../../components/Loader';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Api from '../../serializer/api';
+import { setUser } from '../../store/user/userActionCreator';
 
 const useStyles = makeStyles(() => ({
     "@media only screen and (max-width: 12000px)": {
@@ -103,31 +104,28 @@ const ProfilePage = () => {
 
     const classes = useStyles()
 
+    const dispatch = useDispatch()
     const user = useSelector(getUserData)
 
     const formik = useFormik({
       initialValues: {
         name: '',
-        email: '',
-        description: '',
+        avatar: '',
       },
       validationSchema: Yup.object({
         name: Yup.string()
-            .required('Enter Title'),
-        email: Yup.string()
-            .required('Enter Price'),
-        description: Yup.string()
-            .required('Enter Price'),
+            .required("Enter new name"),
+        avatar: Yup.string()
       }),
       onSubmit: (value, {resetForm}) => {
-        Api.updateUser(formik)
+        Api.updateUser(user.id, formik)
+        .then(data => dispatch(setUser(data)))
         resetForm()
-        console.log('hello')
       },
     });
     return (
         <Box className={classes.cont}>
-            <Loader loading={!user.avatar}>
+            <Loader >
                 <CardMedia image={user.cover} className={classes.cover}>
                     <CardMedia image={user.avatar} className={classes.avatar} />
                     <Box className={classes.name}>{user.name}</Box>
@@ -146,11 +144,8 @@ const ProfilePage = () => {
                         <TextField className={classes.input} size="small" id="outlined-basic" label="Name" variant="outlined"  id="name" type="text" {...formik.getFieldProps('name')} />
                         {formik.touched.name && formik.errors.name ? (<div className={classes.err}>{formik.errors.name}</div>) : null}
 
-                        <TextField className={classes.input} size="small" id="outlined-basic" label="Email" variant="outlined"  id="email" type="text" {...formik.getFieldProps('email')} />
-                        {formik.touched.email && formik.errors.email ? (<div className={classes.err}>{formik.errors.email}</div>) : null}
-
-                        <TextField className={classes.input} size="small" id="outlined-basic" label="Description" variant="outlined" id="description" type="text" {...formik.getFieldProps('description')} />
-                        {formik.touched.description && formik.errors.description ? (<div className={classes.err}>{formik.errors.description}</div>) : null}
+                        <TextField className={classes.input} size="small" id="outlined-basic" label="Profile Photo" variant="outlined" id="avatar" type="file" {...formik.getFieldProps('avatar')} />
+                        {formik.touched.avatar && formik.errors.avatar ? (<div className={classes.err}>{formik.errors.avatar}</div>) : null}
 
                         <Button className={classes.button} type="submit">Submit</Button>
 

@@ -1,0 +1,3 @@
+export const SET_PRODUCT = 'SET_PRODUCT';
+export const SET_SINGLEPAGE = 'SET_SINGLEPAGE'
+export const SET_ISLOADING = 'SET_ISLOADING'

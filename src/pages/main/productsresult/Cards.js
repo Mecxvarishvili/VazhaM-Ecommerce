@@ -5,6 +5,10 @@ import CardItem from './CardItem';
 import { useEffect } from 'react';
 import Api from '../../../serializer/api';
 import Loader from '../../../components/Loader';
+import { useDispatch, useSelector } from 'react-redux';
+import { setProduct } from '../../../store/products/productActionCreator';
+import { getProductsData } from '../../../store/products/productSelector';
+import { setIsLoading } from '../../../store/products/productActionCreator';
 
 const useStyles = makeStyles((theme) => ({
     cont: {
@@ -15,16 +19,16 @@ const useStyles = makeStyles((theme) => ({
 const Cards = (props) => {
     const classes = useStyles()
     
-    const [data, setData] = useState({page: '', data: '',})
-    const [loading, setIsLoading] = useState(false)
+    const dispatch = useDispatch()
+    const data = useSelector(getProductsData)
 
-    const products = () => {
-        setIsLoading(true)
+     const products = async () => {
+        dispatch(setIsLoading(true))
         Api.getProducts(props.page)
-        .then(res => setData(res))
+        .then(res => {dispatch(setProduct(res))})
         .catch(err => {console.log(err)})
-        .finally(() => {
-            setIsLoading(false)})
+        .finally(() => {dispatch(setIsLoading(false))})
+        
     };
     useEffect(() => {
         products()
@@ -35,7 +39,7 @@ const Cards = (props) => {
     return (
         <Box component="section" className={classes.cont}>
             <Grid container spacing={3}>
-                <Loader loading={loading}>
+                <Loader>
                 {!!data.data.length && data.data.map((el) => (
                         <Grid key={el.id} item xs={12} sm={6} md={4}>
                             <CardItem data={el} />

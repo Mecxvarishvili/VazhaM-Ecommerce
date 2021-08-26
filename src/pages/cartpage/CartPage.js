@@ -73,13 +73,11 @@ const useStyles = makeStyles(() => ({
 const CartPage = () => {
 
     const classes = useStyles()
+
     const dispatch = useDispatch()
     const cart = useSelector(getCartProduct)
-    const [amountCount, setAmountCount] = useState()
-    useEffect(() => {
-        console.log('hello')
-    }, [dispatch])
-
+    const [reload, setReload] = useState(0)
+    
     return (
         <Box>
             <Box className={classes.titleCont}>
@@ -115,7 +113,7 @@ const CartPage = () => {
                                         </Box>
                                     </Box>
                                     <Box className={classes.removeCont} >
-                                    <Button onClick={() => dispatch(deleteCart(el))}  className={classes.deleteButton} ><FontAwesomeIcon className={classes.icon} icon={faTrash} /> Remove from cart</Button>
+                                    <Button onClick={() => setReload(dispatch(deleteCart(el)))}  className={classes.deleteButton} ><FontAwesomeIcon className={classes.icon} icon={faTrash} /> Remove from cart</Button>
                                         <Button>move to wishlist</Button>
                                         <Box></Box>
                                     </Box>

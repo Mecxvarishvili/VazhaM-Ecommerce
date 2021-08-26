@@ -1,6 +1,8 @@
 import { Box, makeStyles } from '@material-ui/core';
 import React from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { getIsLoading } from '../store/products/productSelector';
+import { useSelector } from 'react-redux';
 
 const useStyes = makeStyles((theme) => ({
     spinner: {
@@ -14,9 +16,10 @@ const useStyes = makeStyles((theme) => ({
 }))
 
 const Loader = (props) => {
+    const loading = useSelector(getIsLoading)
     const classes = useStyes()
     return (
-        props.loading ? <CircularProgress className={classes.spinner} /> : props.children
+        loading ? <CircularProgress className={classes.spinner} /> : props.children
     );
 };
 

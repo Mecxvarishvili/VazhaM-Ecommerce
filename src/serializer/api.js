@@ -1,18 +1,43 @@
 import { serializeProductItem, serializeProducts, serializeAddProduct, serializeProductLimit, serializeSignIn, serializeSignUp, serializeProfileUpdate } from "./serialize";
-
-
+import { serialize } from "object-to-formdata";
 
 const Api = {
+    baseApi: (url, method= "GET", params, isFile) => {
+        let headers = {};
+
+        if (!isFile) {
+            headers= {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+                Authorization: `Bearer ${localStorage.getItem('Token')}`
+            };
+        } else {
+            headers = {
+                Accept: "application/json",
+                Authorization: `Bearer ${localStorage.getItem("Token")}`,
+            }
+        }
+        return fetch('http://159.65.126.180/api/'+ url, {
+            method: method,
+            headers,
+            body: isFile ? serialize(params) : JSON.stringify(params)
+        })
+        .then((res) => {
+            if (res.ok) {
+                return res.json()
+            } else {
+                throw new Error('')
+            }
+        })
+    },
     getProducts: (page)=> {
-        return fetch(`http://159.65.126.180/api/products?page=${page}`)
-            .then(res => res.json())
+        return Api.baseApi(`products?page=${page}`)
             .then(json => {{return serializeProducts(json)}})
     },
 
     getProductItem: (id) => {
-        return fetch(`http://159.65.126.180/api/products/${id}`)
-        .then(res => res.json())
-        .then(el => {{return serializeProductItem(el)}})
+        return Api.baseApi(`products/${id}`)
+        .then(json => {{return serializeProductItem(json)}})
     },
     getProductLimit: (limit) => {
         return fetch(`https://fakestoreapi.com/products?limit=${limit}`)
@@ -28,26 +53,11 @@ const Api = {
     },
 
     getSignIn: (values) => {
-        return fetch('http://159.65.126.180/api/auth/login', {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json",
-              Authorization: `Bearer ${localStorage.getItem('token')}`
-            },
-            body:JSON.stringify(serializeSignIn(values))
-        })
+        return Api.baseApi('auth/login', "POST", serializeSignIn(values))
     },
 
     getSignUp: (values) => {
-        return fetch('http://159.65.126.180/api/register', {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json"
-            },
-            body:JSON.stringify(serializeSignUp(values))
-        })
+        return Api.baseApi('register', "POST", (serializeSignUp(values)))
     },
 
     getToken: () => {
@@ -60,16 +70,16 @@ const Api = {
             .then(res => res.json())
     },
 
-    updateUser: (values) => {
-        return fetch ('http://159.65.126.180/api/users/1/update', {
+    updateUser: (id, values) => {
+        return Api.baseApi(`users/${id}/update`, "POST", values, true)
+        /* return fetch (`http://159.65.126.180/api/users/${id}/update`, {
             method: "POST",
             headers: {
-              "Content-Type": "application/json",
               Accept: "application/json",
               Authorization: `Bearer ${localStorage.getItem("Token")}`
             },
             body:JSON.stringify(serializeProfileUpdate(values))
-        })
+        }) */
     }
 }
 

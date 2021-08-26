@@ -1,7 +1,7 @@
 import { DELETE_CART, SET_CART } from "./cartActionConst";
 
 const initialState = { 
-    isAdded: {}, 
+    isAdded: [], 
     product: [],
     amount: [],
 }
@@ -20,6 +20,7 @@ export default function cartReducer(state = initialState, action) {
 
             return { 
                 ...state,
+                isAdded: [ ...state.amount, action.payload.id]
             }
         case DELETE_CART:
             var index =  state.product.map(x => {

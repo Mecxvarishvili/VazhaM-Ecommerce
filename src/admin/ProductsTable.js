@@ -12,6 +12,8 @@ import { useEffect } from 'react';
 import Api from '../serializer/api';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Loader from '../components/Loader';
+import { useDispatch } from 'react-redux';
+import { setIsLoading } from '../store/products/productActionCreator';
 
 const useStyles = makeStyles((theme) => ({
     mainCont: {
@@ -51,28 +53,16 @@ const ProductsTable = () => {
     const classes = useStyles()
     const [data, setData] = useState({data: '',})
     const [limit, setLimit] = useState(20);
-    const [loading, setIsLoading] = useState(false)
 
-    const handleChange = (event) => {
-        setLimit(event.target.value);
-        setIsLoading(true)
-        Api.getProductLimit(event.target.value)
-        .then(res => setData(res))
-        .catch(err => {console.log(err)})
-        .finally(() => {
-            setIsLoading(false)
-        })
-      };
+    const dispatch = useDispatch()
 
-      useEffect(() => {
-        setIsLoading(true)
-        Api.getProductLimit(limit)
-        .then(res => setData(res))
-        .catch(err => {console.log(err)})
-        .finally(() => {
-          setIsLoading(false)
-        })
-      }, [])
+    useEffect(() => {
+      dispatch(setIsLoading(true))
+      Api.getProductLimit(limit)
+      .then(res => setData(res))
+      .catch(err => {console.log(err)})
+      .finally(() => {dispatch(setIsLoading(false))})
+    }, [limit])
 
     return (
         <Box className={classes.mainCont}>
@@ -80,7 +70,7 @@ const ProductsTable = () => {
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               value={limit}
-              onChange={handleChange}
+              onChange={(e) => setLimit(e.target.value)}
             >
               <MenuItem value={5}>Five</MenuItem>
               <MenuItem value={10}>Ten</MenuItem>
@@ -88,7 +78,7 @@ const ProductsTable = () => {
               <MenuItem value={20}>Twenty</MenuItem>
             </Select>
             <Box>
-              <Loader loading={loading}>
+              <Loader>
                 <TableContainer className={classes.tableCont} component={Paper}>
                   <Table className={classes.table} aria-label="simple table">
                     <TableHead>

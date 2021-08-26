@@ -1,8 +1,8 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Grid } from '@material-ui/core';
-import LeftFilter from './leftfilter/LeftFilter';
-import RightResult from './rightresult/RightResult';
+import LeftFilter from './productsfilter/ProductsFilter';
+import RightResult from './productsresult/ProductsResult';
 
 
 const useStyles = makeStyles((theme) => ({

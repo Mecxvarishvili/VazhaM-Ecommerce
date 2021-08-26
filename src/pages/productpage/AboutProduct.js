@@ -5,7 +5,7 @@ import Rating from '@material-ui/lab/Rating';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteCart, setCart } from '../../store/cart/cartActionCreator';
-import { getCartProduct } from '../../store/cart/cartSelector';
+import { getCartIsAdd, getCartProduct } from '../../store/cart/cartSelector';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 
@@ -117,7 +117,7 @@ const AboutProduct = (props) => {
     const data = props.data
     const classes = useStyles()
     const dispatch = useDispatch()
-    const gtCartData = useSelector(getCartProduct)
+    const isAdded = useSelector(getCartIsAdd)
 
     const [amount, setAmount] = useState(1)
 

@@ -1,10 +1,9 @@
-import { SET_USER, SET_TOKEN, GET_LOGGEDIN, GET_LOADING } from "./userActionsConst"
+import { SET_USER, SET_TOKEN, SET_ISLOGGEDIN } from "./userActionsConst"
 
 const initialState = {
     user: {},
     token: {}, 
     isLoggedIn: localStorage.getItem("Token"),
-    isLoading: false,
 }
 
 export default function userReducer(state = initialState, action) {
@@ -19,15 +18,10 @@ export default function userReducer(state = initialState, action) {
                 ...state,
                 token: action.payload
             }
-        case GET_LOGGEDIN:
+        case SET_ISLOGGEDIN:
             return {
                 ...state,
                 isLoggedIn: action.payload
-            }
-        case GET_LOADING:
-            return {
-                ...state,
-                isLoading: action.payload
             }
         default:
             return state
