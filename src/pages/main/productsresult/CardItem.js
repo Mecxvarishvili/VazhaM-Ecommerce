@@ -13,6 +13,7 @@ import { deleteCart, setCart } from '../../../store/cart/cartActionCreator';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import CartButton from '../../../components/CartButton';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -34,31 +35,6 @@ const useStyles = makeStyles(() => ({
     alignItems: "center",
     marginTop: "15px",
     
-  },
-  addButton: {
-    width: "135px",
-    height: "35px",
-    borderRadius: "4px",
-    backgroundColor: "#f2f2f2",
-    color: "#4f4f4f",
-    fontSize: "10px",
-    fontWeight: "700",
-    boxShadow: "0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%)",
-    margin: "0 auto",
-  },
-  deleteButton: {
-    width: "150px",
-    height: "35px",
-    borderRadius: "4px",
-    backgroundColor: "#f2f2f2",
-    color: "#4f4f4f",
-    fontSize: "10px",
-    fontWeight: "700",
-    boxShadow: "0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%)",
-  },
-  icon: {
-    fontSize: "15px",
-    marginRight: "5px",
   },
 }));
 
@@ -91,8 +67,7 @@ const CardItem = (props) => {
       </Link>
       </Card>
       <Box className={classes.buttonCont}>
-      <Button onClick={() => dispatch(setCart(data))} className={classes.addButton}><FontAwesomeIcon className={classes.icon} icon={faShoppingCart} />ADD TO CART</Button>
-      <Button onClick={() => dispatch(deleteCart(data))}  className={classes.deleteButton} ><FontAwesomeIcon className={classes.icon} icon={faTrash} /> Remove from cart</Button>
+        <CartButton data={data}/>
       </Box>
     </Box>
   );

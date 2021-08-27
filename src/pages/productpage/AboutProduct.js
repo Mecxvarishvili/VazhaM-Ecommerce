@@ -4,10 +4,11 @@ import { Grid, Box, Button, TextField } from '@material-ui/core'
 import Rating from '@material-ui/lab/Rating';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteCart, setCart } from '../../store/cart/cartActionCreator';
+import { decreaseQuantity, deleteCart, increaseQuantity, setCart } from '../../store/cart/cartActionCreator';
 import { getCartIsAdd, getCartProduct } from '../../store/cart/cartSelector';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import CartButton from '../../components/CartButton';
 
 const useStyles = makeStyles(() => ({
     table: {
@@ -117,17 +118,17 @@ const AboutProduct = (props) => {
     const data = props.data
     const classes = useStyles()
     const dispatch = useDispatch()
-    const isAdded = useSelector(getCartIsAdd)
+    const cart = useSelector(getCartProduct)
 
     const [amount, setAmount] = useState(1)
 
     const increaseValue = () => {
-      setAmount(amount + 1)
+      dispatch(increaseQuantity(1))
     }
 
     const decreaseValue = () => {
       if(amount > 1){
-        setAmount(amount - 1)
+        dispatch(decreaseQuantity(1))
       }
     }
 
@@ -163,13 +164,12 @@ const AboutProduct = (props) => {
             </Box>
             <Box>
                 <Button className={classes.buyButton}>BUY NOW</Button>
-                <Button onClick={() => dispatch(setCart(data))} className={classes.addButton}><FontAwesomeIcon className={classes.icon} icon={faShoppingCart} />ADD TO CART</Button>
-                <Button onClick={() => dispatch(deleteCart(data))}  className={classes.deleteButton} ><FontAwesomeIcon className={classes.icon} icon={faTrash} /> Remove from cart</Button>
+                <CartButton data={data}/>
             </Box>
             <Box>
-                <Button onClick={decreaseValue}>-</Button>
-                <TextField type="phone" onChange={handSetValue} value={amount} />
-                <Button onClick={increaseValue} >+</Button>
+                <Button onClick={() => dispatch(decreaseQuantity())}>-</Button>
+                <TextField type="number" onChange={handSetValue} value={amount} />
+                <Button onClick={() => dispatch(increaseQuantity(1))} >+</Button>
             </Box>
         </Grid>
     );

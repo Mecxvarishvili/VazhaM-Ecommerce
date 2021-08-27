@@ -113,7 +113,7 @@ const CartPage = () => {
                                         </Box>
                                     </Box>
                                     <Box className={classes.removeCont} >
-                                    <Button onClick={() => setReload(dispatch(deleteCart(el)))}  className={classes.deleteButton} ><FontAwesomeIcon className={classes.icon} icon={faTrash} /> Remove from cart</Button>
+                                    <Button onClick={() => dispatch(deleteCart(el))}  className={classes.deleteButton} ><FontAwesomeIcon className={classes.icon} icon={faTrash} /> Remove from cart</Button>
                                         <Button>move to wishlist</Button>
                                         <Box></Box>
                                     </Box>

@@ -1,41 +1,23 @@
-import { DELETE_CART, SET_CART } from "./cartActionConst";
+import { DECREASE_QUANTITY, DELETE_CART, INCREASE_QUANTITY, SET_CART } from "./cartActionConst";
 
-const initialState = { 
-    isAdded: [], 
-    product: [],
-    amount: [],
-}
+const initialState = []
 
 export default function cartReducer(state = initialState, action) {
     switch (action.type) {
         case SET_CART:
-            var index =  state.product.map(x => {
-                if (x.id === action.payload.id)
-                return x.id
-            }).indexOf(action.payload.id)
-            
-            if(index < 0 ) {
-                state.product.push(action.payload)
-            }
-
-            return { 
-                ...state,
-                isAdded: [ ...state.amount, action.payload.id]
-            }
+            return [ ...state,{
+                ...action.payload, qty:1}
+            ]
         case DELETE_CART:
-            var index =  state.product.map(x => {
-                if (x.id === action.payload.id)
-                return x.id
-            }).indexOf(action.payload.id)
-            
-            if(index >= 0 ) {
-                state.product.splice(index, 1)
-            }
-
-            return {
-                ...state,
-                isAdded: action.payload.id
-            }
+            return state.filter((el) => {return el.id !== action.payload})
+        case INCREASE_QUANTITY:
+            return  [...state,{
+                ...action.payload, qty: +1}
+            ]
+        case DECREASE_QUANTITY:
+            return [ ...state,{
+                ...action.payload, qty: -1}
+            ]
         default: 
             return state
     }
