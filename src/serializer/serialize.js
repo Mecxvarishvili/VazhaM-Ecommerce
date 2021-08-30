@@ -9,6 +9,7 @@ export function serializeProducts(data){
                 img: el.image,
                 describe: el.description,
                 category: el.category,
+                qty: 1,
             }
         })
 
@@ -23,6 +24,7 @@ export function serializeProductItem(el){
         img: el.image,
         describe: el.description,
         category: el.category,
+        qty: 1,
     }
 }
 

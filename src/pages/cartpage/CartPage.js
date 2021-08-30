@@ -1,13 +1,44 @@
-import { Box, Button, CardMedia, Grid, makeStyles } from '@material-ui/core';
 import React, { useState, useEffect } from 'react';
-import { getCartProduct } from '../../store/cart/cartSelector';
+import { Box, Button, CardMedia, Grid, makeStyles } from '@material-ui/core';
+import { getCartProducts } from '../../store/cart/cartSelector';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { deleteCart } from '../../store/cart/cartActionCreator';
 import { faTrash, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import CartQuantity from '../../components/CartQuantity';
 
 const useStyles = makeStyles(() => ({
+    "@media only screen and (max-width: 12000px)": {
+        container: {
+            width: '1140px',
+            margin: "0 auto",
+        },
+    },
+    "@media only screen and (max-width: 1200px)": {
+        container: {
+            width: '910px',
+            margin: "0 auto",
+        },
+    },
+    "@media only screen and (max-width: 959px)": {
+        container: {
+            width: '690px',
+            margin: "0 auto",
+        },
+    },
+    "@media only screen and (max-width: 769px)": {
+        container: {
+            maxWidth: '510px',
+            margin: "0 auto",
+        },
+    },
+    "@media only screen and (max-width: 580px)": {
+        container: {
+            maxWidth: '100%',
+            margin: "0 auto",
+        },
+    },
     titleCont: {
         height: "130px",
         margin: "58px auto 32px auto",
@@ -21,15 +52,17 @@ const useStyles = makeStyles(() => ({
         fontWeight: "500",
         color: "#4f4f4f",
     },
+    productsCont: {
+        padding: "20px",
+        marginBottom: "25px",
+        boxShadow: '0 10px 20px 0 rgb(0 0 0 / 5%)',
+
+    },
     title: {
         fontSize: "20px",
         marginBottom: "25px",
         fontWeight: "500",
         color: "#4f4f4f",
-    },
-    container: {
-        width: "1140px",
-        margin: "0 auto",
     },
     img: {
         width: "100%",
@@ -49,6 +82,8 @@ const useStyles = makeStyles(() => ({
     },
     cartTitle: {
         fontSize: "20px",
+        color: "#4f4f4f",
+        fontWeight: "500",
     },
     giveShadow: {
         boxShadow: '0 10px 20px 0 rgb(0 0 0 / 5%)'
@@ -67,6 +102,54 @@ const useStyles = makeStyles(() => ({
       fontSize: "15px",
       marginRight: "5px",
     },
+    describeCont: {
+        display: "flex",
+        justifyContent: "space-between"
+    },
+    cartAbout: {
+        width: "300px",
+        height: "130px"
+    },
+    category: {
+        fontSize: "14px",
+        textTransform: "capitalize",
+        color: "#6c757d!important"
+    }, 
+    deliveryCont: {
+        padding: "20px",
+        boxShadow: '0 10px 20px 0 rgb(0 0 0 / 5%)',
+        marginBottom: "25px",
+
+    },
+    deliveryTitle: {
+        fontSize: "20px",
+        fontWeight: "500",
+        color: "#4f4f4f",
+        marginBottom: "25px"
+    },
+    deliveryTime: {
+        fontSize: "16px",
+        color: "#4f4f4f",
+    },
+    payCont: {
+        padding: "20px",
+        marginBottom: "25px",
+        boxShadow: '0 10px 20px 0 rgb(0 0 0 / 5%)'
+    },
+    payTitle: {
+        fontSize: "20px",
+        fontWeight: "500",
+        color: "#4f4f4f",
+        marginBottom: "25px",
+    },
+    payImgCont: {
+        display: "flex",
+    },
+    payImg: {
+        width: "50px",
+        height: "30px",
+        marginRight: "10px",
+    }
 
 }))
 
@@ -75,8 +158,7 @@ const CartPage = () => {
     const classes = useStyles()
 
     const dispatch = useDispatch()
-    const cart = useSelector(getCartProduct)
-    const [reload, setReload] = useState(0)
+    const cart = useSelector(getCartProducts)
     
     return (
         <Box>
@@ -85,57 +167,57 @@ const CartPage = () => {
             </Box>
             <Box className={classes.container}>
                 <Grid container spacing={4}>
-                    <Grid xs={12} sm={8} item>
-                        <Box className={classes.giveShadow}>
+                    <Grid xs={12} md={8} item conatiner spacing={2} >
+                        <Box className={classes.productsCont}>
                             { cart.length ?
                             <>
                             <Box className={classes.title}>Cart ({cart.length} items)</Box>
-                            { cart.map((el) =>(
-                            <Grid key={el.id} container spacing={5} className={classes.cartCont}>
-                                <Grid sm={3} item>
-                                    <CardMedia className={classes.img} image={el.img} />
-                                </Grid>
-                                <Grid item  sm={9} className={classes.aboutCont}>
-                                    <Box>
-                                        <Box>
-                                            <Box className={classes.cartTitle}>{el.title}</Box>
-                                            <Box>{el.category}</Box>
-                                            <Box></Box>
-                                            <Box></Box>
-                                        </Box>
-                                        <Box>
-                                            <Box>
-                                                <Button>-</Button>
-                                                <input/>
-                                                <Button>+</Button>
+                                { cart.map((el) =>(
+                                <Grid key={el.id} container spacing={5} className={classes.cartCont}>
+                                    <Grid item sm={5} md={3}>
+                                        <CardMedia className={classes.img} image={el.img} />
+                                    </Grid>
+                                    <Grid item  sm={7} md={9} className={classes.aboutCont}>
+                                        <Box className={classes.describeCont}>
+                                            <Box className={classes.cartAbout}>
+                                                <Box className={classes.cartTitle}>{el.title}</Box>
+                                                <Box className={classes.category}>Category: {el.category}</Box>
+                                                <Box></Box>
+                                                <Box></Box>
                                             </Box>
-                                            <Box>(Note, 1 piece)</Box>
+                                            <Box>
+                                                <Box>
+                                                    <CartQuantity data={el} />
+                                                </Box>
+                                                <Box>(Note, 1 piece)</Box>
+                                            </Box>
                                         </Box>
-                                    </Box>
-                                    <Box className={classes.removeCont} >
-                                    <Button onClick={() => dispatch(deleteCart(el))}  className={classes.deleteButton} ><FontAwesomeIcon className={classes.icon} icon={faTrash} /> Remove from cart</Button>
-                                        <Button>move to wishlist</Button>
-                                        <Box></Box>
-                                    </Box>
-                                </Grid>
-                            </Grid> 
-                            ))}
+                                        <Box className={classes.removeCont} >
+                                        <Button onClick={() => dispatch(deleteCart(el))}  className={classes.deleteButton} ><FontAwesomeIcon className={classes.icon} icon={faTrash} /> Remove from cart</Button>
+                                            <Button>move to wishlist</Button>
+                                            <Box></Box>
+                                        </Box>
+                                    </Grid>
+                                </Grid> 
+                                ))}
                             <Box className={classes.infoCircle}> <FontAwesomeIcon icon={faInfoCircle}/> Do not delay the purchase, adding items to your cart does not mean booking them.</Box>
                             </>
                             : <Box>cart is empty</Box>  }
                         </Box>
-                        <Box  className={classes.giveShadow}>
-                            <Box>Expected shipping delivey</Box>
-                            <Box>Thu. 12.03. -Mon. 16.03.</Box>
+                        <Box  className={classes.deliveryCont}>
+                            <Box className={classes.deliveryTitle}>Expected shipping delivey</Box>
+                            <Box className={classes.deliveryTime}>Thu. 12.03. -Mon. 16.03.</Box>
                         </Box>
-                        <Box  className={classes.giveShadow}>
-                            <Box>We Accept</Box>
-                            <Box>
-                                <CardMedia />
+                        <Box  className={classes.payCont}>
+                            <Box className={classes.payTitle}>We Accept</Box>
+                            <Box className={classes.payImgCont} >
+                                <CardMedia className={classes.payImg} image={'https://mdbootstrap.com/wp-content/plugins/woocommerce-gateway-stripe/assets/images/visa.svg'}/>
+                                <CardMedia className={classes.payImg} image={'https://mdbootstrap.com/wp-content/plugins/woocommerce-gateway-stripe/assets/images/amex.svg'}/>
+                                <CardMedia className={classes.payImg} image={'https://mdbootstrap.com/wp-content/plugins/woocommerce-gateway-stripe/assets/images/mastercard.svg'} />
                             </Box>
                         </Box>
                     </Grid>
-                    <Grid xs={12} sm={4} item>
+                    <Grid xs={12} md={4} item>
                         <Box className={classes.giveShadow}>
                             <Box className={classes.title}>The total amount of</Box>
                             <Box>

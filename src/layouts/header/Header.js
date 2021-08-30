@@ -13,7 +13,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
 import { setLoggedIn, setToken, setUser } from '../../store/user/userActionCreator';
 import { getLoggedIn, getUserData } from '../../store/user/userSelector';
-import { getCartProduct } from '../../store/cart/cartSelector';
+import { getCartProducts } from '../../store/cart/cartSelector';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -179,7 +179,7 @@ const Header = () => {
     const classes = useStyles();
 
     const isLoggedIn = useSelector(getLoggedIn)
-    const cartProduct = useSelector(getCartProduct)
+    const cartProduct = useSelector(getCartProducts)
 
     const dispatch = useDispatch()
 

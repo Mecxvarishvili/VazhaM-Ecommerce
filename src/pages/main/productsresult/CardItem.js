@@ -67,7 +67,7 @@ const CardItem = (props) => {
       </Link>
       </Card>
       <Box className={classes.buttonCont}>
-        <CartButton data={data}/>
+        <CartButton data={data} qty={1}/>
       </Box>
     </Box>
   );

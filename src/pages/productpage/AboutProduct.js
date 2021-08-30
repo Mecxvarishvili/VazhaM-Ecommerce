@@ -1,14 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Box, Button, TextField } from '@material-ui/core'
 import Rating from '@material-ui/lab/Rating';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
-import { useDispatch, useSelector } from 'react-redux';
-import { decreaseQuantity, deleteCart, increaseQuantity, setCart } from '../../store/cart/cartActionCreator';
-import { getCartIsAdd, getCartProduct } from '../../store/cart/cartSelector';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { useSelector } from 'react-redux';
+import { getCartProducts } from '../../store/cart/cartSelector';
 import CartButton from '../../components/CartButton';
+import CartQuantity from '../../components/CartQuantity';
 
 const useStyles = makeStyles(() => ({
     table: {
@@ -115,28 +113,15 @@ const rows = [
 ];
 
 const AboutProduct = (props) => {
-    const data = props.data
     const classes = useStyles()
-    const dispatch = useDispatch()
-    const cart = useSelector(getCartProduct)
 
-    const [amount, setAmount] = useState(1)
-
-    const increaseValue = () => {
-      dispatch(increaseQuantity(1))
-    }
-
-    const decreaseValue = () => {
-      if(amount > 1){
-        dispatch(decreaseQuantity(1))
-      }
-    }
-
-    const handSetValue = (e) => {
-      setAmount(parseInt(e.target.value))
-    }
+    const cart = useSelector(getCartProducts)
+    const data = props.data
+    const thisCart = cart.find(id => id.id === data.id)
 
 
+    const [qty, setQty] = useState(1)
+    
     return (
         <Grid item md={6} xs={12}>
             <Box className={classes.title}>{data.title}</Box>
@@ -164,12 +149,14 @@ const AboutProduct = (props) => {
             </Box>
             <Box>
                 <Button className={classes.buyButton}>BUY NOW</Button>
-                <CartButton data={data}/>
+                <CartButton qty={qty} data={data}/>
             </Box>
             <Box>
-                <Button onClick={() => dispatch(decreaseQuantity())}>-</Button>
-                <TextField type="number" onChange={handSetValue} value={amount} />
-                <Button onClick={() => dispatch(increaseQuantity(1))} >+</Button>
+              <CartQuantity data={data} qty={qty}>
+                <Button onClick={() => {if(qty > 1){setQty(qty - 1)}}}>-</Button>
+                <TextField type="number" onChange={(e) => setQty(parseInt(e.target.value))} value={qty} />
+                <Button onClick={() => setQty(qty + 1)} >+</Button>
+              </CartQuantity>
             </Box>
         </Grid>
     );
