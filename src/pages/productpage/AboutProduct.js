@@ -20,6 +20,9 @@ const useStyles = makeStyles(() => ({
       fontSize: "10px",
       fontWeight: "700",
       marginRight: "10px",
+      "&:hover": {
+        backgroundColor: "#1266f1",
+      }
     },
     addButton: {
       width: "135px",
@@ -100,17 +103,22 @@ const useStyles = makeStyles(() => ({
       backgroundColor: "rgba(0,0,0,.1)",
       margin: "16px 0",
     },
+    buttonCont: {
+      display: "flex",
+      flexWrap: "wrap",
+      alignItems: "center",
+    },
+    quantityCont: {
+      display: "flex",
+      alignItems: "center",
+      marginLeft: "15px",
+      color: "#4f4f4f",
+    }
 }))
 
 function createData(name, describe) {
     return { name, describe, };
   }
-
-const rows = [
-  createData('Model', 'Shirt 5407X'),
-  createData('Color', 'Blue'),
-  createData('Delivery', 'USA, Europe'),
-];
 
 const AboutProduct = (props) => {
     const classes = useStyles()
@@ -119,8 +127,18 @@ const AboutProduct = (props) => {
     const data = props.data
     const thisCart = cart.find(id => id.id === data.id)
 
+    var thisCartQty = 1
+    
+    if (!!thisCart) {
+        thisCartQty = thisCart.qty
+    }
 
-    const [qty, setQty] = useState(1)
+
+    const [qty, setQty] = useState(thisCartQty)
+
+    const stateUpQty = (e) => {
+      setQty(e)
+    }
     
     return (
         <Grid item md={6} xs={12}>
@@ -147,16 +165,17 @@ const AboutProduct = (props) => {
             <Box>
 
             </Box>
-            <Box>
+            <Box className={classes.buttonCont}>
                 <Button className={classes.buyButton}>BUY NOW</Button>
                 <CartButton qty={qty} data={data}/>
-            </Box>
-            <Box>
-              <CartQuantity data={data} qty={qty}>
-                <Button onClick={() => {if(qty > 1){setQty(qty - 1)}}}>-</Button>
-                <TextField type="number" onChange={(e) => setQty(parseInt(e.target.value))} value={qty} />
-                <Button onClick={() => setQty(qty + 1)} >+</Button>
-              </CartQuantity>
+                <Box className={classes.quantityCont}>
+                  <Box>Quantity: &nbsp;</Box>
+                  <CartQuantity data={data} setQty={stateUpQty} />{/* 
+                    <Button onClick={() => {if(qty > 1){setQty(qty - 1)}}}>-</Button>
+                    <TextField type="number" onChange={(e) => setQty(parseInt(e.target.value))} value={qty} />
+                    <Button onClick={() => setQty(qty + 1)} >+</Button>
+                  </CartQuantity> */}
+                </Box>
             </Box>
         </Grid>
     );

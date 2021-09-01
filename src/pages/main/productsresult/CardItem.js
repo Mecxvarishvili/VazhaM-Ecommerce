@@ -31,17 +31,24 @@ const useStyles = makeStyles(() => ({
     color: "black",
   },
   buttonCont: {
+    width: "230px",
     display: "flex",
-    alignItems: "center",
+    justifyContent: "center",
     marginTop: "15px",
     
   },
+  title: {
+    height: "100px",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    wordrap: "break-word",
+    lineHeight: " 25px",
+  }
 }));
 
 const CardItem = (props) => {
   
   const classes = useStyles(props);
-  const dispatch = useDispatch()
 
   const data = props.data
 
@@ -59,7 +66,7 @@ const CardItem = (props) => {
             <Typography className={classes.title} gutterBottom variant="h6" component="h2">
               {data.title}
             </Typography>
-            <Typography className={classes.title} variant="h6" component="p">
+            <Typography className={classes.price} variant="h6" component="p">
                 ${data.price}
             </Typography>
           </CardContent>
@@ -67,7 +74,7 @@ const CardItem = (props) => {
       </Link>
       </Card>
       <Box className={classes.buttonCont}>
-        <CartButton data={data} qty={1}/>
+        <CartButton className={classes.button} data={data} qty={1}/>
       </Box>
     </Box>
   );

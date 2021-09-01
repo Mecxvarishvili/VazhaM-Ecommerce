@@ -18,18 +18,20 @@ const useStyles = makeStyles(() =>({
       fontSize: "10px",
       fontWeight: "700",
       boxShadow: "0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%)",
-      margin: "0 auto",
     },
     deleteButton: {
       width: "150px",
       height: "35px",
       borderRadius: "4px",
-      backgroundColor: "#f2f2f2",
-      color: "#4f4f4f",
+      backgroundColor: "#ff0000",
+      color: "White",
       fontSize: "10px",
       fontWeight: "700",
       boxShadow: "0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%)",
-      margin: "0 auto",
+      "&:hover": {
+        backgroundColor: "#ff0000",
+        color: "White",
+      }
     },
     icon: {
       fontSize: "15px",

@@ -60,37 +60,44 @@ const CartQuantity = (props) => {
 
     const [qty, setQty] = useState(thisCartQty)
 
-
-    useEffect(() => {
-        console.log(thisCartQty)
-    })
     const increaseQuantity = () => {
-        setQty(qty + 1)
-        dispatch(setQuantity(data, qty + 1))
+        if(!!thisCart) {
+            setQty(qty + 1)
+            dispatch(setQuantity(data, qty + 1))
+        } else {
+            setQty(qty + 1)
+            props.setQty(qty + 1)
+        }
     }
 
     const decreaseQuantity = () => {
-        if(qty > 1){
-          setQty(qty - 1)
-          dispatch(setQuantity(data, qty - 1))
+        if(!!thisCart) {
+            if(qty > 1){
+              setQty(qty - 1)
+              dispatch(setQuantity(data, qty - 1))
+            }
+        } else {
+            setQty(qty - 1)
+            props.setQty(qty - 1)
         }
     }
 
     const handSetQuantity = (e) => {
-      setQty(parseInt(e.target.value))
-      dispatch(setQuantity(data, parseInt(e.target.value)))
+        if(!!thisCart) {
+            setQty(parseInt(e.target.value))
+            dispatch(setQuantity(data, parseInt(e.target.value)))
+        } else {
+            setQty(parseInt(e.target.value))
+            props.setQty(parseInt(e.target.value))
+        }
     }
-    
 
     return (
-        !!thisCart ?
         <Box className={classes.cont}>
             <button className={classes.decrease} onClick={decreaseQuantity}>&#8722;</button>
             <input className={classes.input} type="text" onChange={handSetQuantity} value={qty} />
             <button className={classes.increase} onClick={increaseQuantity} >&#43;</button>
-        
-        </Box> :
-        props.children
+        </Box>
     );
 };
 
