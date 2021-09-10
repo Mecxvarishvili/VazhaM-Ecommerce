@@ -26,7 +26,7 @@ const Api = {
             if (res.ok) {
                 return res.json()
             } else {
-                throw new Error('')
+                return res.json()
             }
         })
     },
@@ -61,13 +61,7 @@ const Api = {
     },
 
     getToken: () => {
-        return fetch ('http://159.65.126.180/api/auth/me', {
-            method: "POST",
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("Token")}`
-            },
-        })
-            .then(res => res.json())
+        return Api.baseApi('auth/me', "POST", )
     },
 
     updateUser: (id, values) => {

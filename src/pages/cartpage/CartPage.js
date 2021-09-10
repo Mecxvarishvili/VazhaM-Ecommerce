@@ -241,6 +241,15 @@ const CartPage = () => {
     const classes = useStyles()
 
     const cart = useSelector(getCartProducts)
+    const amountArray = cart.map(el => {
+        return Math.round(el.price) * el.qty
+    })
+
+    var amount = 0
+
+    for (var i = 0; i < amountArray.length; i++){
+        amount += amountArray[i];
+    }
     
     return (
         <Box>
@@ -277,7 +286,7 @@ const CartPage = () => {
                                                 <Box className={classes.buttonCont} >
                                                     <Box>
                                                         <CartButton data={el} />
-                                                        <Button className={classes.wishlistButton}><FontAwesomeIcon className={classes.heart} icon={faHeart}/>&nbsp; move to wishlist</Button>
+                                                        <Button onClick={() => console.log(amount)} className={classes.wishlistButton}><FontAwesomeIcon className={classes.heart} icon={faHeart}/>&nbsp; move to wishlist</Button>
                                                     </Box>
                                                     <Box className={classes.price}>Total Price: &nbsp;${Math.round(el.price) * el.qty}</Box>
                                                 </Box>
@@ -309,7 +318,7 @@ const CartPage = () => {
                             <Box>
                                 <Box className={classes.topAmount}>
                                     <Box>Temporary amount</Box>
-                                    <Box>$100</Box>
+                                    <Box>${amount}</Box>
                                 </Box>
                                 <Box className={classes.topAmount}>
                                     <Box>Shipping:</Box>
@@ -318,7 +327,7 @@ const CartPage = () => {
                                 <Box className={classes.line} />
                                 <Box className={classes.bottomAmount}>
                                     <Box className={classes.vat}>The total amount of (including VAT) </Box>
-                                    <Box> 100$</Box>
+                                    <Box>${amount}</Box>
                                 </Box>
                             </Box>
                         </Box>

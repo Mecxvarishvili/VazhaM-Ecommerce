@@ -6,15 +6,14 @@ import { makeStyles } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import { blue } from '@material-ui/core/colors';
 import { Link, useHistory } from 'react-router-dom';
-import { SIGNUP, Admin, Home } from "../serializer/routes"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFacebookF, faTwitter, faLinkedinIn, faGithub } from '@fortawesome/free-brands-svg-icons'
-import Api from '../serializer/api' 
+import { Home, SIGNIN } from "../../serializer/routes";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFacebookF, faTwitter, faLinkedinIn, faGithub } from '@fortawesome/free-brands-svg-icons';
+import Api from '../../serializer/api'; 
 import { useDispatch, useSelector } from 'react-redux';
-import { setLoggedIn, setToken, setUser } from '../store/user/userActionCreator';
-import { getToken } from '../store/user/userSelector';
+import { getToken } from '../../store/user/userSelector';
+import { setLoggedIn, setToken, setUser } from '../../store/user/userActionCreator';
 import { useState } from 'react';
-
 
 const BlueCheckbox = withStyles({
     root: {
@@ -27,6 +26,29 @@ const BlueCheckbox = withStyles({
   })((props) => <Checkbox color="default" {...props} />);
 
 const useStyles = makeStyles(() => ({
+    err: {
+      fontSize: "15px",
+        color: "#ff5756",
+        marginBottom: "20px",
+    },
+    nameErr: {
+      fontSize: "15px",
+      color: "#ff5756",
+      marginBottom: "15px",
+    },
+    titlCont: {
+        height: "130px",
+        margin: "62px auto 32px auto",
+        backgroundColor: "#fbfbfb",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    title: {
+        fontSize: "28px",
+        fontWeight: "500",
+        color: "#4f4f4f",
+    },
     "@media only screen and (max-width: 12000px)": {
       container: {
           maxWidth: "1140px",
@@ -57,7 +79,7 @@ const useStyles = makeStyles(() => ({
     },
     "@media only screen and (max-width: 768px)": {
       container: {
-        maxWidth: '540px',
+        maxWidth: '560px',
           display: "flex",
           justifyContent: "center",
           margin: "0 auto",
@@ -68,28 +90,23 @@ const useStyles = makeStyles(() => ({
         maxWidth: '100%',
           display: "flex",
           justifyContent: "center",
-          margin: " auto 10px",
+          padding: " auto 10px",
       },
     },
-    err: {
-        color: "#ff5756",
-        marginBottom: "20px",
+    nameCont: {
+      display: "flex",
+      justifyContent: "space-between",
     },
-    titlCont: {
-        height: "130px",
-        margin: "62px auto 32px auto",
-        backgroundColor: "#fbfbfb",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
+    name: {
+      flexBasis: "48%",
     },
-    title: {
-        fontSize: "28px",
-        fontWeight: "500",
-        color: "#4f4f4f",
+    firstName: {
+      width: "100%",
+      marginBottom: "5px",
     },
-    inCont: {
-
+    lastName: {
+      width: "100%",
+      marginBottom: "5px",
     },
     forInput: {
         margin: "5px auto",
@@ -97,8 +114,8 @@ const useStyles = makeStyles(() => ({
     },
     bottom: {
         display: "flex",
-        justifyContent: "space-between",
         alignItems: "center",
+        justifyContent: "center"
     },
     remember: {
         color: "#6c757d",
@@ -132,7 +149,7 @@ const useStyles = makeStyles(() => ({
     iconCont: {
         display: "flex",
         justifyContent: "center",
-        marginBottom: "60px",
+        marginBottom: "30px",
     },
     icon: {
         width: "20px",
@@ -182,19 +199,30 @@ const useStyles = makeStyles(() => ({
     free: {
         color: "#4f4f4f",
         marginBottom: "16px",
+    },
+    line: {
+      width: "100%",
+      height: "1px",
+      backgroundColor: "#c4c4c4",
+      marginBottom: "16px",
+    },
+    terms: {
+      color: "#4f4f4f",
+      marginBottom: "50px",
     }
 }))
 
-const SignIn = () => {
-
-    const history = useHistory()
+const SignUp = () => {
 
     const classes = useStyles()
 
+    const history = useHistory()
+
     const dispatch = useDispatch()
 
-    const [ err, setErr ] = useState(false)
+    const token = useSelector(getToken)
 
+    const [ err, setErr ] = useState({email: false, password: false})
 
     const formik = useFormik({
       initialValues: {
@@ -202,47 +230,73 @@ const SignIn = () => {
         password: '',
       },
       validationSchema: Yup.object({
-        email: Yup.string().email('Invalid email address').required('Enter your email address'),
+        firstName: Yup.string()
+          .required('Enter your first name'),
+        lastName: Yup.string()
+          .required('Enter your last name'),
+        email: Yup.string().email('Invalid email address').required('An email is required'),
         password: Yup.string()
           .min(8, 'Must be 8 characters or more')
           .required('Enter Password'),
+        repassword: Yup.string()
+          .max(15, 'Must be 15 characters or less')
+          .required('Enter phone number')
       }),
       onSubmit: values => {
-        Api.getSignIn(values)
-        .then(data => {
-            dispatch(setUser(data.user))
-            dispatch(setToken(data.token))
-            dispatch(setLoggedIn(true))
-            localStorage.setItem("Token", data.token.access_token)
-            history.replace(Home)
+        Api.getSignUp(values)
+        .then(data => { 
+          if(data.errors) {
+            setErr(data.errors)
+          } else {
+              dispatch(setUser(data.user))
+              dispatch(setToken(data.token))
+              dispatch(setLoggedIn(true))
+              localStorage.setItem("Token", data.token)
+              history.replace(Home)
+          }
         })
       },
     });
     return (
         <Box>
             <Box className={classes.titlCont}>
-                <Box className={classes.title}>Sign in</Box>
+                <Box className={classes.title}>Sign up</Box>
             </Box>
             <Grid container className={classes.container}>
                 <Grid  className={classes.inCont} item xs={10} sm={6}>
                     <form onSubmit={formik.handleSubmit}> 
-                        <Box>
+                        <Box> 
+                          <Box className={classes.nameCont}>
+                            <Box className={classes.name}>
+                              <TextField className={classes.firstName} size="small" id="outlined-basic" label="First name" variant="outlined"  id="firstName" type="text" {...formik.getFieldProps('firstName')} />
+                              {formik.touched.firstName && formik.errors.firstName ? (<div className={classes.nameErr} >{formik.errors.firstName}</div>) : null}
+                            </Box>
+                            <Box className={classes.name}>
+                              <TextField className={classes.lastName} size="small" id="outlined-basic" label="Last name" variant="outlined"  id="lastName" type="text" {...formik.getFieldProps('lastName')} />
+                              {formik.touched.lastName && formik.errors.lastName ? (<div className={classes.nameErr} >{formik.errors.lastName}</div>) : null}
+                            </Box>
+                          </Box>
+
                             <TextField className={classes.forInput} size="small" id="outlined-basic" label="Your Email" variant="outlined"  id="email" type="text" {...formik.getFieldProps('email')} />
                             {formik.touched.email && formik.errors.email ? (<div className={classes.err} >{formik.errors.email}</div>) : null}
+                            {err.email ? <Box className={classes.err} >{err.email}</Box> : <></>}
 
                             <TextField className={classes.forInput} size="small" id="outlined-basic" label="Your Password" variant="outlined"  id="password" type="password" {...formik.getFieldProps('password')} />
                             {formik.touched.password && formik.errors.password ? (<div className={classes.err} >{formik.errors.password}</div>) : null}
-                            {err ? <Box className={classes.err}>Email or password is not correct</Box> : <></> }
+
+                            <TextField className={classes.forInput} size="small" id="outlined-basic" label="Re Enter Password" variant="outlined"  id="phone" type="password" {...formik.getFieldProps('repassword')} />
+                            {formik.touched.repassword && formik.errors.repassword ? (<div className={classes.err} >{formik.errors.repassword}</div>) : null}
+                            {err.password ? <Box className={classes.err} >{err.password}</Box> : <></>}
+
                             <Box className={classes.bottom}>
-                                <FormControlLabel className={classes.remember} control={<BlueCheckbox name="rememberMe" />} label="REMEMBER ME" />
-                                <Box className={classes.link}>Forgot password?</Box>
+                                <FormControlLabel className={classes.remember} control={<BlueCheckbox name="subscribe" />} label="SUBSCRIBE TO OUR NEWSLETTER" />
                             </Box>
                         </Box>
                         <Box className={classes.footerCont}>
-                            <Button className={classes.button} type="submit">Sign In</Button>
+                            <Button className={classes.button} type="submit">SIGN UP</Button>
                             <Box className={classes.free}>
-                                Not a member?
-                                <Link className={classes.link} to={SIGNUP}> Register</Link>
+                            Already have an account?
+                                <Link className={classes.link} to={SIGNIN}> Sign in</Link>
                             </Box>
                             <Box className={classes.free}>or sign in with:</Box>
                             <Box className={classes.iconCont}>
@@ -259,6 +313,8 @@ const SignIn = () => {
                                 <FontAwesomeIcon className={classes.icon} icon={faGithub} />
                                 </Box>
                             </Box>
+                            <Box className={classes.line} />
+                            <Box className={classes.terms}>By clicking Sign up you agree to our <Box className={classes.link}>terms of service</Box></Box>
                         </Box>
                     </form>
                 </Grid>
@@ -267,4 +323,4 @@ const SignIn = () => {
     );
 };
 
-export default SignIn;
+export default SignUp;

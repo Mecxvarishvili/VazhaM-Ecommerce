@@ -1,6 +1,6 @@
-import { DECREASE_QUANTITY, DELETE_CART, INCREASE_QUANTITY, SET_CART, SET_COOKIECART, SET_QUANTITY } from "./cartActionConst"
+import { CLEAR_CART, DECREASE_QUANTITY, DELETE_CART, INCREASE_QUANTITY, SET_CART, SET_COOKIECART, SET_QUANTITY } from "./cartActionConst"
 
-export const  setCartCookie = (data) => {
+export const  setCookieCart = (data) => {
     return {
         type: SET_COOKIECART,
         payload: data
@@ -25,5 +25,12 @@ export const setQuantity = (data, qty) => {
     return {
         type: SET_QUANTITY,
         payload: {data, qty}
+    }
+}
+
+export const clearCart = (data) => {
+    return {
+        type: CLEAR_CART,
+        payload: data,
     }
 }

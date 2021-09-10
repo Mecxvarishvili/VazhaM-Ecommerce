@@ -76,3 +76,21 @@ export function serializeProfileUpdate(values) {
         name: values.name,
     }
 }
+export function serializecart(data) {
+    return data.map(el => {
+            return {
+                id: el.id,
+                title: el.title,
+                price: el.price,
+                img: el.img,
+                category: el.category,
+                qty: el.qty
+            }
+        })
+}
+
+export function serializeCartAmount(data) {
+    return data.map(el => {
+        return el.price * el.qty
+    })
+}

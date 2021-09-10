@@ -3,7 +3,7 @@ import { SET_ISLOADING, SET_PRODUCT, SET_SINGLEPAGE } from "./productActionConst
 const initialState = {
     products: {data:[], page:[]},
     singlePage: {data:[]},
-    isLoading: true
+    isLoading: {},
 }
 
 export default function productReducer(state = initialState, action) {

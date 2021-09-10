@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setLoggedIn, setToken, setUser } from '../../store/user/userActionCreator';
 import { getLoggedIn, getUserData } from '../../store/user/userSelector';
 import { getCartProducts } from '../../store/cart/cartSelector';
+import { clearCart } from '../../store/cart/cartActionCreator';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -187,10 +188,6 @@ const Header = () => {
 
     const userData = useSelector(getUserData)
 
-    useEffect(() =>{
-      console.log("aa")
-    }, [])
-
     const [navBackground, setNavBackground] = useState('appBarSolid')
     const [color, setColor] = useState({logo: "logo", signUp: "aftSignUp", after: "after", aftImg: "optionImgAft", aftIcon: "aftIcon",})
     const navRef = React.useRef()
@@ -268,6 +265,7 @@ const Header = () => {
     dispatch(setLoggedIn(false))
     dispatch(setToken({}))
     dispatch(setUser({}))
+    dispatch(clearCart([]))
     localStorage.removeItem("Token")
     history.replace(Home)
   }
@@ -284,10 +282,10 @@ const Header = () => {
       onClose={handleMobileMenuClose}
     >
       <Box className={classes.menuItem}>
-        <Button>
-          <Badge badgeContent={5} color="secondary"></Badge>
-          <ShoppingCartIcon className={`${classes.shoppingCart} ${classes[colRef.current.after]}`} />
-        </Button>
+          <Link to={CART}className={`${classes.signIn} ${classes[colRef.current.after]}`}>
+          <Badge badgeContent={cartProduct.length} color="secondary"></Badge>
+            <ShoppingCartIcon className={`${classes.shoppingCart} ${classes[colRef.current.after]}`} />
+          </Link>
         <Select className={`${classes.select} ${classes[colRef.current.aftImg]}`} value="0" >
           <option className={classes.optionSee} value="0">
             <CardMedia className={`${classes.optionImg} ${classes[colRef.current.aftImg]}`} image={'https://www.kindpng.com/picc/m/167-1672831_gb-united-kingdom-flag-icon-british-flag-hd.png'}/>

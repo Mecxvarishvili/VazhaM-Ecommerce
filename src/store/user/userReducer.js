@@ -3,7 +3,7 @@ import { SET_USER, SET_TOKEN, SET_ISLOGGEDIN } from "./userActionsConst"
 const initialState = {
     user: {},
     token: {}, 
-    isLoggedIn: localStorage.getItem("Token"),
+    isLoggedIn: false,
 }
 
 export default function userReducer(state = initialState, action) {

@@ -1,5 +1,4 @@
-import { DECREASE_QUANTITY, DELETE_CART, INCREASE_QUANTITY, SET_CART, SET_COOKIECART, SET_QUANTITY } from "./cartActionConst";
-import { getCartCookie } from "./cartSelector";
+import { CLEAR_CART, DELETE_CART, SET_CART, SET_COOKIECART, SET_QUANTITY } from "./cartActionConst";
 
 const initialState = {
     products:[]
@@ -7,10 +6,6 @@ const initialState = {
 
 export default function cartReducer(state = initialState, action) {
     switch (action.type) {
-        case SET_COOKIECART:
-            return {
-                products: [action.payload]
-            }
         case SET_CART:
             var data = action.payload.data
             data.qty = action.payload.qty
@@ -31,6 +26,16 @@ export default function cartReducer(state = initialState, action) {
             return  {
                 ...state,
                 products: [...data]
+            }
+        case SET_COOKIECART:
+            return {
+                ...state,
+                products: [...action.payload]
+            }
+        case CLEAR_CART:
+            return {
+                ...state,
+                products: [...action.payload]
             }
         default: 
             return state
