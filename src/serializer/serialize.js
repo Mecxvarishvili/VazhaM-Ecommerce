@@ -76,7 +76,7 @@ export function serializeProfileUpdate(values) {
         name: values.name,
     }
 }
-export function serializecart(data) {
+export function serializeCart(data) {
     return data.map(el => {
             return {
                 id: el.id,

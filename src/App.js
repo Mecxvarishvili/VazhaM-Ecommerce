@@ -16,9 +16,9 @@ import ProfilePage from './pages/profilepage/ProfilePage';
 import Api from './serializer/api';
 import CartPage from './pages/cartpage/CartPage';
 import { setIsLoading } from './store/products/productActionCreator';
-import { getCartCookie, getCartProducts } from './store/cart/cartSelector';
+import { getCookie, getCartProducts } from './store/cart/cartSelector';
 import { setCart, setCookieCart } from './store/cart/cartActionCreator';
-import { serializecart } from './serializer/serialize';
+import { serializeCart } from './serializer/serialize';
 import { getLoggedIn } from './store/user/userSelector';
 
 const App = () => {
@@ -33,7 +33,7 @@ const App = () => {
     if (!!localStorage.getItem("Token")) {
       Api.getToken()
       .then((data) => {
-        if(data.errors) {
+        if(data.error) {
           dispatch(setLoggedIn(false))
           dispatch(setToken({}))
           dispatch(setUser({}))
@@ -51,16 +51,20 @@ const App = () => {
       dispatch(setLoggedIn(false))
     }
 
-    if (isLoggedIn) {
-      dispatch(setCookieCart(JSON.parse(getCartCookie("Cart"))))
+    let cookie = getCookie("Cart")
+    
+    if ( isLoggedIn) {
+      if (!!cookie) {
+        dispatch(setCookieCart(cookie))
+      } else {
+      dispatch(setCookieCart([]))
+      }
     }
   }, [isLoggedIn])
 
-  
-
   useEffect(() => {
     if (isLoggedIn) {
-      document.cookie = `Cart=${JSON.stringify(serializecart(cartProducts))}`
+      document.cookie = `Cart=${JSON.stringify(serializeCart(cartProducts))}`
     }
   }, [cartProducts])
 
