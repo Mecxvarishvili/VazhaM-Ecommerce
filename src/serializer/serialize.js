@@ -1,7 +1,6 @@
 export function serializeProducts(data){
     return {
-        page: data.page,
-        data: data.data.map(el => {
+        data: data.map(el => {
             return {
                 id: el.id,
                 title: el.title,
@@ -89,8 +88,8 @@ export function serializeCart(data) {
         })
 }
 
-export function serializeCartAmount(data) {
+/* export function serializeCartAmount(data) {
     return data.map(el => {
         return el.price * el.qty
     })
-}
+} */

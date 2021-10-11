@@ -31,7 +31,10 @@ const App = () => {
   
   useEffect(() => {
     if (!!localStorage.getItem("Token")) {
-      Api.getToken()
+      dispatch(setLoggedIn(true))
+
+      /* Api.getToken()
+      get token not working because this fatch has not 
       .then((data) => {
         if(data.error) {
           dispatch(setLoggedIn(false))
@@ -46,7 +49,7 @@ const App = () => {
           dispatch(setUser(data))
           dispatch(setIsLoading(false))
         }
-      })
+      }) */
     } else {
       dispatch(setLoggedIn(false))
     }

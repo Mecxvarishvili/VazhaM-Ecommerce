@@ -17,7 +17,7 @@ const Api = {
                 Authorization: `Bearer ${localStorage.getItem("Token")}`,
             }
         }
-        return fetch('http://159.65.126.180/api/'+ url, {
+        return fetch('https://fakestoreapi.com/'+ url, {
             method: method,
             headers,
             body: isFile ? serialize(params) : JSON.stringify(params)
@@ -30,14 +30,14 @@ const Api = {
             }
         })
     },
-    getProducts: (page)=> {
-        return Api.baseApi(`products?page=${page}`)
+    getProducts: ()=> {
+        return Api.baseApi(`products`)
             .then(json => {{return serializeProducts(json)}})
     },
 
     getProductItem: (id) => {
         return Api.baseApi(`products/${id}`)
-        .then(json => {{return serializeProductItem(json)}})
+            .then(json => {{return serializeProductItem(json)}})
     },
     getProductLimit: (limit) => {
         return fetch(`https://fakestoreapi.com/products?limit=${limit}`)

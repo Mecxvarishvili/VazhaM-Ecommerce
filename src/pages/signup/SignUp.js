@@ -243,7 +243,10 @@ const SignUp = () => {
           .required('Enter phone number')
       }),
       onSubmit: values => {
-        Api.getSignUp(values)
+        dispatch(setLoggedIn(true))
+        history.replace(Home)  
+        localStorage.setItem("Token", "data.token.access_token")
+        /* Api.getSignUp(values)
         .then(data => { 
           if(data.errors) {
             setErr(data.errors)
@@ -254,7 +257,7 @@ const SignUp = () => {
               localStorage.setItem("Token", data.token)
               history.replace(Home)
           }
-        })
+        }) */
       },
     });
     return (

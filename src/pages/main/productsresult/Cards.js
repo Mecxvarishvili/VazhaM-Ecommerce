@@ -24,7 +24,7 @@ const Cards = (props) => {
 
      const products = async () => {
         dispatch(setIsLoading(true))
-        Api.getProducts(props.page)
+        Api.getProducts()
         .then(res => {dispatch(setProduct(res))})
         .catch(err => {console.log(err)})
         .finally(() => {dispatch(setIsLoading(false))})

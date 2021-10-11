@@ -208,7 +208,10 @@ const SignIn = () => {
           .required('Enter Password'),
       }),
       onSubmit: values => {
-        Api.getSignIn(values)
+          dispatch(setLoggedIn(true))
+          history.replace(Home)  
+          localStorage.setItem("Token", "data.token.access_token")
+        /* Api.getSignIn(values)
         .then(data => {
             if(data.errors) {
                 setErr(true)
@@ -219,7 +222,7 @@ const SignIn = () => {
                 localStorage.setItem("Token", data.token.access_token)
                 history.replace(Home)  
             }
-        })
+        }) */
       },
     });
     return (
